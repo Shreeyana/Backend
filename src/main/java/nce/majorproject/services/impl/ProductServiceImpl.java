@@ -52,7 +52,7 @@ public class ProductServiceImpl  implements ProductService {
         product.setColour(request.getColour());
         product.setPrice(request.getPrice());
         product.setPhoto(ImageUtil.compressBytes(request.getProductImage()));
-
+        product.setQuantity(request.getQuantity());
         return product;
     }
 }

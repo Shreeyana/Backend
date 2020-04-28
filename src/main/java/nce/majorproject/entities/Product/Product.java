@@ -30,7 +30,8 @@ public class Product {
     private SubCategory subCategory;
     @Column(name = "added_by")
     private String addedBy;
-
+    @Column(name = "quantity")
+    private int quantity;
     @Column(name="photo",length = 1000)
     private byte[] photo;
 }

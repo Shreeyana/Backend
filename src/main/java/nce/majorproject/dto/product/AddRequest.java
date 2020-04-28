@@ -38,4 +38,9 @@ public class AddRequest {
     @FormParam("productImage")
     @PartType("image/jpg")
     private byte[] productImage;
+
+    @NotBlank(message = "quantity is mandatory")
+    @FormParam("subCategoryId")
+    @PartType("text/plain")
+    private int quantity;
 }
