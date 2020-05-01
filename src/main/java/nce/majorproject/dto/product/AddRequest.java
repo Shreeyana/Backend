@@ -6,6 +6,7 @@ import org.jboss.resteasy.annotations.providers.multipart.PartType;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.FormParam;
 
 @Getter
@@ -20,17 +21,17 @@ public class AddRequest {
     @PartType("text/plain")
     private String colour;
 
-    @NotBlank(message = "Price is mandatory")
+    @NotNull(message = "Price is mandatory")
     @FormParam("price")
     @PartType("text/plain")
     private double price;
 
-    @NotBlank(message = "Category Id is mandatory")
+    @NotNull(message = "Category Id is mandatory")
     @FormParam("categoryId")
     @PartType("text/plain")
     private Long categoryId;
 
-    @NotBlank(message = "Sub Category Id is mandatory")
+    @NotNull(message = "Sub Category Id is mandatory")
     @FormParam("subCategoryId")
     @PartType("text/plain")
     private Long subCategoryId;
@@ -39,8 +40,8 @@ public class AddRequest {
     @PartType("image/jpg")
     private byte[] productImage;
 
-    @NotBlank(message = "quantity is mandatory")
-    @FormParam("subCategoryId")
+    @NotNull(message = "quantity is mandatory")
+    @FormParam("quantity")
     @PartType("text/plain")
     private int quantity;
 }

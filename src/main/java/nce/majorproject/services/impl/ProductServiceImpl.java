@@ -3,6 +3,7 @@ package nce.majorproject.services.impl;
 import nce.majorproject.context.ContextHolderServices;
 import nce.majorproject.dto.Response;
 import nce.majorproject.dto.product.AddRequest;
+import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.entities.Product.Category;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.Product.SubCategory;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl  implements ProductService {
@@ -39,6 +42,27 @@ public class ProductServiceImpl  implements ProductService {
         Product product=prepareToAddProduct(request);
         Product response=productRepository.save(product);
         return Response.builder().id(response.getId()).build();
+    }
+
+    @Override
+    public List<LatestAddedProductResponse> showLatestAdded() {
+        List<Product> productList=productRepository.findLatestAddedProduct();
+        List<LatestAddedProductResponse> productResponseList=new ArrayList<>();
+        productList.forEach(latestAddedProductResponse -> {
+            LatestAddedProductResponse productResponse=prepareToShowLatestAddedProduct(latestAddedProductResponse);
+            productResponseList.add(productResponse);
+        });
+        return productResponseList;
+    }
+
+    private LatestAddedProductResponse prepareToShowLatestAddedProduct(Product product){
+        LatestAddedProductResponse response=new LatestAddedProductResponse();
+        response.setId(product.getId());
+        response.setName(product.getProductName());
+        response.setPrice(product.getPrice());
+        response.setQuantity(product.getQuantity());
+        response.setPhoto(ImageUtil.decompressBytes(product.getPhoto()));
+        return response;
     }
 
     private Product prepareToAddProduct(AddRequest request){

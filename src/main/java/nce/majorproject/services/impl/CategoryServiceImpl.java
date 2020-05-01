@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     private Category prepareToAddCategory(CategoryRequest request){
         Category category=new Category();
-        category.setAddedBy(contextHolderServices.getContext().getFullName());
+        category.setAddedBy("contextHolderServices.getContext().getFullName()");
         category.setAddedDate(LocalDateTime.now());
         category.setName(request.getName());
         return category;

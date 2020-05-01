@@ -25,6 +25,6 @@ public class SubCategory {
     private LocalDateTime addedDate;
 
     @OneToOne
-    @JoinColumn(name = "category-id",referencedColumnName = "id")
+    @JoinColumn(name = "category_id",referencedColumnName = "id")
     private Category category;
 }

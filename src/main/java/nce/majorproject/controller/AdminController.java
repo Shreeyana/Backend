@@ -24,7 +24,7 @@ public class AdminController {
         this.adminServices = adminServices;
     }
 
-    @PostMapping()
+    @PostMapping(value = "/add")
     public Response addAdmin(@Valid @RequestBody AdminRegisterRequest registerRequest){
         log.info("registering new admin::{}{}",registerRequest.getFullName(),registerRequest.getUserName());
         return adminServices.addAdmin(registerRequest);

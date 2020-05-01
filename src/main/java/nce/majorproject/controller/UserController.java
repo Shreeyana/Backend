@@ -24,7 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping()
+    @PostMapping
     public Response addUser(@Valid @RequestBody UserAddRequest request){
         log.info("adding user::{}{}",request.getFullName(),request.getEmail());
         return userService.addUser(request);
