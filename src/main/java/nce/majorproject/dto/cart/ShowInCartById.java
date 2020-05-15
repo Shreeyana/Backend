@@ -9,13 +9,14 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class showInCartById {
-    private long product_id;
+public class ShowInCartById {
+    private Long product_id;
     private LocalDateTime addedDate;
     private int quantity;
     private String productName;
     private double price;
-    private Category category;
-    private SubCategory subCategory;
+    private String category;
+    private String subCategory;
     private byte[] photo;
+    private Long cartid;
 }

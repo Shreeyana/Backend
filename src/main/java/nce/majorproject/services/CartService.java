@@ -2,14 +2,19 @@ package nce.majorproject.services;
 
 
 
-import nce.majorproject.dto.cart.showInCartById;
+import nce.majorproject.dto.Response;
+import nce.majorproject.dto.cart.CartAdd;
+import nce.majorproject.dto.cart.CartRemove;
+import nce.majorproject.dto.cart.CartRequest;
+import nce.majorproject.dto.cart.ShowInCartById;
 import nce.majorproject.entities.Cart;
-import nce.majorproject.entities.Product.Product;
 
 import java.util.List;
 
 public interface CartService {
 
-    List<showInCartById> showCart(String user_id);
-    public List<showInCartById> mergeCartandProduct(List<Cart> cart, List<Product> product);
+    List<ShowInCartById> showCart(CartRequest userId);
+    Response addToCart(CartAdd addInCart);
+    Response removeFromCart(CartRemove removeInCart);
+
 }

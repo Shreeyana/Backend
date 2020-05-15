@@ -35,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
         Optional<User> optionalUser=userRepository.authenticateUserCredential(request.getUserName(), SecurityUtil.encode(request.getPassword()));
         User user= optionalUser.orElseThrow(()->new RestException("invalid login credentials!!"));
 //        final String accessToken= jwtTokenUtil.generateToken(this.prepareClaims(user.getUserName(),user.getId(), UserType.User.name()));
-        return AuthResponse.builder().build();
+        return AuthResponse.builder().status("SUCCESS").build();
 
     }
 //    private Map<String, Object> prepareClaims(String userName, Long id, String type) {

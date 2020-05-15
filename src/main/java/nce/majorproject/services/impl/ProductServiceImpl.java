@@ -7,6 +7,8 @@ import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.entities.Product.Category;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.Product.SubCategory;
+import nce.majorproject.entities.User;
+import nce.majorproject.exception.RestException;
 import nce.majorproject.repositories.product.CategoryRepository;
 import nce.majorproject.repositories.product.ProductRepository;
 import nce.majorproject.repositories.product.SubCategoryRepository;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl  implements ProductService {
@@ -67,7 +70,7 @@ public class ProductServiceImpl  implements ProductService {
 
     private Product prepareToAddProduct(AddRequest request){
         Product product=new Product();
-        product.setAddedBy(contextHolderServices.getContext().getUserName());
+        product.setAddedBy("Sandip132");
         product.setAddedDate(LocalDateTime.now());
         Category category=categoryService.validateCategoryId(request.getCategoryId());
         SubCategory subCategory=subCategoryService.validateSubCategoryById(request.getSubCategoryId());;
@@ -77,6 +80,11 @@ public class ProductServiceImpl  implements ProductService {
         product.setPrice(request.getPrice());
         product.setPhoto(ImageUtil.compressBytes(request.getProductImage()));
         product.setQuantity(request.getQuantity());
+        return product;
+    }
+    public Product validateProduct(Long productId){
+        Optional<Product> validate = productRepository.validateProductById(productId);
+        Product product=validate.orElseThrow(()->new RestException("invalid product id"));
         return product;
     }
 }

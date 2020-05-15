@@ -8,4 +8,5 @@ import lombok.Getter;
 public class Response {
 
     private Long id;
+    private String w;
 }
