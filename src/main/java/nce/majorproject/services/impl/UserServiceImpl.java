@@ -1,8 +1,9 @@
 package nce.majorproject.services.impl;
 
+import nce.majorproject.context.ContextHolderServices;
 import nce.majorproject.dto.Response;
 import nce.majorproject.dto.UserAddRequest;
-import nce.majorproject.entities.Product.Category;
+import nce.majorproject.dto.UserProfileResponse;
 import nce.majorproject.entities.User;
 import nce.majorproject.exception.RestException;
 import nce.majorproject.repositories.UserRepository;
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private ContextHolderServices contextHolderServices;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository,ContextHolderServices contextHolderServices) {
         this.userRepository = userRepository;
+        this.contextHolderServices=contextHolderServices;
     }
 
     @Override
@@ -29,6 +32,13 @@ public class UserServiceImpl implements UserService {
        User user=prepareUserAddRequest(userAddRequest);
        User response=userRepository.save(user);
        return Response.builder().id(response.getId()).build();
+    }
+
+    @Override
+    public UserProfileResponse getProfile() {
+//        System.out.println(contextHolderServices.getContext().getId());
+        User user=userRepository.getUserProfile(contextHolderServices.getContext().getId());
+        return UserProfileResponse.builder().address(user.getAddress()).email(user.getEmail()).userId(user.getId()).userName(user.getFullName()).build();
     }
 
     private User prepareUserAddRequest(UserAddRequest request){

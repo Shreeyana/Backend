@@ -19,6 +19,7 @@ import nce.majorproject.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class ProductServiceImpl  implements ProductService {
     }
 
     @Override
-    public Response addProducts(AddRequest request) {
+    public Response addProducts(AddRequest request) throws IOException {
         Product product=prepareToAddProduct(request);
         Product response=productRepository.save(product);
         return Response.builder().id(response.getId()).build();
@@ -68,9 +69,10 @@ public class ProductServiceImpl  implements ProductService {
         return response;
     }
 
-    private Product prepareToAddProduct(AddRequest request){
+    private Product prepareToAddProduct(AddRequest request) throws IOException {
+       byte[] image=request.getProductImage().getBytes();
         Product product=new Product();
-        product.setAddedBy("Sandip132");
+        product.setAddedBy("sandip");
         product.setAddedDate(LocalDateTime.now());
         Category category=categoryService.validateCategoryId(request.getCategoryId());
         SubCategory subCategory=subCategoryService.validateSubCategoryById(request.getSubCategoryId());;
@@ -78,7 +80,7 @@ public class ProductServiceImpl  implements ProductService {
         product.setCategory(category);
         product.setColour(request.getColour());
         product.setPrice(request.getPrice());
-        product.setPhoto(ImageUtil.compressBytes(request.getProductImage()));
+        product.setPhoto(ImageUtil.compressBytes(image));
         product.setQuantity(request.getQuantity());
         return product;
     }

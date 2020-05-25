@@ -18,5 +18,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> authenticateUserCredential(String username, String password);
 
     @Query(value = "select u from User u where u.id=?1")
-    Optional<User>validateUserById(Long id);
+    User getUserProfile(Long id);
 }

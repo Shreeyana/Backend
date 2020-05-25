@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
-    @Query(value = "select p from Product p order by p.addedDate desc limit 10 ",nativeQuery = true)
+    @Query(value = "select p from Product p order by p.addedDate desc")
     List<Product> findLatestAddedProduct();
 
     @Query(value="select p from Product p where p.id=?1")
