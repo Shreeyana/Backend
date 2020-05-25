@@ -3,6 +3,7 @@ package nce.majorproject.filter;
 import lombok.extern.slf4j.Slf4j;
 import nce.majorproject.context.ContextHolderServices;
 import nce.majorproject.exception.RestException;
+
 import nce.majorproject.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,10 +42,10 @@ private ContextHolderServices contextHolderServices;
         if (!(isByPassUrl(url))){
             if (requestTokenHeader!=null&&requestTokenHeader.startsWith("Bearer")){
                 String jwtToken=requestTokenHeader.substring(7);
-                String username=jwtTokenUtil.getUserNameFromToken(jwtToken);
+                String username=jwtTokenUtil.getUsernameFromToken(jwtToken);
                 String userType=jwtTokenUtil.getByKey(jwtToken,"userType");
                 log.info("Username from token:: " + username + "" + userType);
-                contextHolderServices.setContext(username, userType);
+                contextHolderServices.setContextForUser(username);
             }else {
                 log.error("JWT Token does not begin with Bearer String");
                 throw new RestException("Invalid access token");

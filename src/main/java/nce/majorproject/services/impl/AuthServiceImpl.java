@@ -25,7 +25,7 @@ public class AuthServiceImpl implements AuthService {
     private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public AuthServiceImpl(UserRepository userRepository, AdminRepository adminRepository, JwtTokenUtil jwtTokenUtil) {
+    public AuthServiceImpl(UserRepository userRepository, AdminRepository adminRepository,JwtTokenUtil jwtTokenUtil) {
         this.userRepository = userRepository;
         this.adminRepository = adminRepository;
         this.jwtTokenUtil = jwtTokenUtil;
@@ -35,14 +35,14 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse authenticateUser(AuthRequest request) {
         Optional<User> optionalUser=userRepository.authenticateUserCredential(request.getUserName(), SecurityUtil.encode(request.getPassword()));
         User user= optionalUser.orElseThrow(()->new RestException("invalid login credentials!!"));
-        final String accessToken= jwtTokenUtil.generateToken(this.prepareClaims(user.getUserName(),user.getId(), UserType.User.name()));
-        return AuthResponse.builder().accessToken(accessToken).build();
+        final String token= jwtTokenUtil.generateToken(this.prepareClaims(user.getUserName(),user.getId(), UserType.User.name()));
+        return AuthResponse.builder().accessToken(token).build();
 
     }
     private Map<String, Object> prepareClaims(String userName, Long id, String type) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", id);
-        claims.put("username", userName);
+        claims.put("userName", userName);
         claims.put("userType", type);
         return claims;
     }

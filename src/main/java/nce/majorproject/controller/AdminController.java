@@ -7,8 +7,11 @@ import nce.majorproject.dto.Response;
 import nce.majorproject.services.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(Route.ADMIN)
@@ -21,8 +24,8 @@ public class AdminController {
         this.adminServices = adminServices;
     }
 
-    @PostMapping()
-    public Response addAdmin(AdminRegisterRequest registerRequest){
+    @PostMapping(value = "/add")
+    public Response addAdmin(@Valid @RequestBody AdminRegisterRequest registerRequest){
         log.info("registering new admin::{}{}",registerRequest.getFullName(),registerRequest.getUserName());
         return adminServices.addAdmin(registerRequest);
     }

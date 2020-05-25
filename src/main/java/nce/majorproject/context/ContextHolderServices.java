@@ -26,25 +26,30 @@ public class ContextHolderServices {
     public Context getContext() {
         return ContextHolder.get();
     }
-    public void setContext(String userType, String userName) {
-        if (userType.equalsIgnoreCase(UserType.Admin.name())){
-            this.setContextForAdmin(userName);
-        }else if (userType.equalsIgnoreCase(UserType.User.name())){
-            this.setContextForUser(userName);
-        }
-    }
+//    public void setContext(String userType, String userName) {
+//        System.out.println(userType+" "+userName);
+//        if (userType.equalsIgnoreCase(UserType.Admin.name())){
+//            System.out.println("hello admin");
+//            this.setContextForAdmin(userName);
+//        }else if (userType.equalsIgnoreCase(UserType.User.name())){
+//            System.out.println("hello user");
+//            this.setContextForUser(userName);
+//        }
+//        System.out.println("test1");
+//    }
 
     private void setContextForAdmin(String username) {
         Optional<Admin> adminOptional = adminRepository.validateUserName(username);
         adminOptional.ifPresent(admin -> {
-            ContextHolder thread = new ContextHolder(admin.getId(),admin.getUserName(),UserType.Admin.name(),admin.getFullName());
+            ContextHolder thread = new ContextHolder(admin.getId(),UserType.Admin.name(),admin.getUserName());
             thread.run();
         });
     }
-    private void setContextForUser(String username) {
+    public void setContextForUser(String username) {
         Optional<User> userOptional = userRepository.validateUserName(username);
         userOptional.ifPresent(user -> {
-            ContextHolder thread = new ContextHolder(user.getId(),user.getUserName(),UserType.User.name(),user.getFullName());
+            ContextHolder thread = new ContextHolder(user.getId(),UserType.User.name(),user.getUserName());
+            System.out.println(user.getId()+ " "+2343);
             thread.run();
         });
     }
