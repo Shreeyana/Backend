@@ -10,7 +10,6 @@ import lombok.Setter;
 public class Context {
     private Long id;
     private String userType;
-    private String userName;
     private String fullName;
 
 }

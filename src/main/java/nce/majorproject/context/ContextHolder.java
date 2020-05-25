@@ -8,13 +8,11 @@ public class ContextHolder implements Runnable{
     private static final ThreadLocal<Context> threadLocal = new ThreadLocal<>();
     private final Long userId;
     private final String username;
-    private final String fullName;
     private final String userType;
 
-    public ContextHolder(Long userId, String username,String userType,String fullName) {
+    public ContextHolder(Long userId, String username,String userType) {
         this.userId = userId;
         this.username = username;
-        this.fullName=fullName;
         this.userType=userType;
     }
 
@@ -31,7 +29,7 @@ public class ContextHolder implements Runnable{
     }
     @Override
     public void run() {
-        set(new Context(userId, userType,username,fullName));
+        set(new Context(userId, userType,username));
         new ContextHolderServices().getContext();
     }
 }

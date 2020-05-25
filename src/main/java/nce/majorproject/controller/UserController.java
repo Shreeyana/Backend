@@ -4,12 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import nce.majorproject.constant.Route;
 import nce.majorproject.dto.Response;
 import nce.majorproject.dto.UserAddRequest;
+import nce.majorproject.dto.UserProfileResponse;
 import nce.majorproject.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -28,5 +26,11 @@ public class UserController {
     public Response addUser(@Valid @RequestBody UserAddRequest request){
         log.info("adding user::{}{}",request.getFullName(),request.getEmail());
         return userService.addUser(request);
+    }
+
+    @GetMapping(value = "/profile")
+    public UserProfileResponse getProfile(){
+        log.info("getting user profile::");
+        return userService.getProfile();
     }
 }

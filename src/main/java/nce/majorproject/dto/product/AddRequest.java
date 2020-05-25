@@ -12,6 +12,7 @@ import javax.ws.rs.FormParam;
 @Getter
 @Setter
 public class AddRequest {
+
     @NotBlank(message = "Name is mandatory")
     @FormParam("Name")
     @PartType("text/plain")
@@ -38,7 +39,7 @@ public class AddRequest {
 
     @FormParam("productImage")
     @PartType("image/jpg")
-    private byte[] productImage;
+    private MultipartFile productImage;
 
     @NotNull(message = "quantity is mandatory")
     @FormParam("quantity")

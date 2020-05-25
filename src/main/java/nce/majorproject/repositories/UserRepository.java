@@ -16,4 +16,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select u from User u where u.userName=?1 and u.pasword=?2")
     Optional<User> authenticateUserCredential(String username, String password);
+
+    @Query(value = "select u from User u where u.id=?1")
+    User getUserProfile(Long id);
 }
