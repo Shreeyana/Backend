@@ -21,7 +21,8 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
+//    @GetMapping
+//    public Response showCart(){}
     @PostMapping
     public Response addUser(@Valid @RequestBody UserAddRequest request){
         log.info("adding user::{}{}",request.getFullName(),request.getEmail());

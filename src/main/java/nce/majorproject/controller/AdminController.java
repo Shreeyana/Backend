@@ -29,5 +29,6 @@ public class AdminController {
         log.info("registering new admin::{}{}",registerRequest.getFullName(),registerRequest.getUserName());
         return adminServices.addAdmin(registerRequest);
     }
+    //asmin test123
 
 }

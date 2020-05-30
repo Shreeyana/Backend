@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category validateCategoryId(Long id) {
         Optional<Category> optionalCategory=categoryRepository.validateById(id);
-        Category category=optionalCategory.orElseThrow(()->new RestException("invalid product id"));
+        Category category=optionalCategory.orElseThrow(()->new RestException("invalid category id"));
         return category;
     }
 
