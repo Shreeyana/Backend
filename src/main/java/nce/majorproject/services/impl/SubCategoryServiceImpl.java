@@ -45,7 +45,7 @@ public class SubCategoryServiceImpl  implements SubCategoryService {
     private SubCategory prepareSubCategoryAddData(SubCategoryRequest request){
         SubCategory subCategory=new SubCategory();
         Category category=categoryService.validateCategoryId(request.getCategoryId());
-        subCategory.setAddedBy("contextHolderServices.getContext().getFullName()");
+        subCategory.setAddedBy(contextHolderServices.getContext().getFullName());
         subCategory.setAddedDate(LocalDateTime.now());
         subCategory.setName(request.getName());
         subCategory.setCategory(category);

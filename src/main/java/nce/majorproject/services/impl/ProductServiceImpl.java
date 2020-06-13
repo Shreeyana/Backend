@@ -55,6 +55,7 @@ public class ProductServiceImpl  implements ProductService {
         productList.forEach(latestAddedProductResponse -> {
             LatestAddedProductResponse productResponse=prepareToShowLatestAddedProduct(latestAddedProductResponse);
             productResponseList.add(productResponse);
+            System.out.println(productResponse);
         });
         return productResponseList;
     }

@@ -12,7 +12,7 @@ public class CartAdd {
     private int quantity;
     private boolean isCheckout;
     private boolean isRemoved;
-    private Long userId;
+    private Long user_id;
     private LocalDateTime addedDate;
     private LocalDateTime modifiedDate;
 }
