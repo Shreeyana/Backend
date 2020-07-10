@@ -10,5 +10,10 @@ public class LatestAddedProductResponse {
     private String name;
     private int quantity;
     private double price;
-    private byte[] photo;
+    private byte[] img;
+    private String company;
+    private String info;
+    private String inCart;
+    private String count;
+    private String total;
 }

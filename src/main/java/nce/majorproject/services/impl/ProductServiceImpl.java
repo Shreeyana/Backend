@@ -66,14 +66,19 @@ public class ProductServiceImpl  implements ProductService {
         response.setName(product.getProductName());
         response.setPrice(product.getPrice());
         response.setQuantity(product.getQuantity());
-        response.setPhoto(ImageUtil.decompressBytes(product.getPhoto()));
+        response.setImg(ImageUtil.decompressBytes(product.getPhoto()));
+        response.setCompany(product.getSubCategory().getName());
+        response.setInfo(product.getSubCategory().getName());
+        response.setCount("0");
+        response.setInCart("false");
+        response.setTotal("0");
         return response;
     }
 
     private Product prepareToAddProduct(AddRequest request) throws IOException {
        byte[] image=request.getProductImage().getBytes();
         Product product=new Product();
-        product.setAddedBy("sandip");
+        product.setAddedBy(contextHolderServices.getContext().getFullName());
         product.setAddedDate(LocalDateTime.now());
         Category category=categoryService.validateCategoryId(request.getCategoryId());
         SubCategory subCategory=subCategoryService.validateSubCategoryById(request.getSubCategoryId());;

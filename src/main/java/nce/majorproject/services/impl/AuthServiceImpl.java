@@ -14,6 +14,7 @@ import nce.majorproject.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -35,6 +36,8 @@ public class AuthServiceImpl implements AuthService {
     public AuthResponse authenticateUser(AuthRequest request) {
         Optional<User> optionalUser=userRepository.authenticateUserCredential(request.getUserName(), SecurityUtil.encode(request.getPassword()));
         User user= optionalUser.orElseThrow(()->new RestException("invalid login credentials!!"));
+        user.setLoginTime(LocalDateTime.now());
+        userRepository.save(user);
         final String token= jwtTokenUtil.generateToken(this.prepareClaims(user.getUserName(),user.getId(), UserType.User.name()));
         return AuthResponse.builder().accessToken(token).build();
 

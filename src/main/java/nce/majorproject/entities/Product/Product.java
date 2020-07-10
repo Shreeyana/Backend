@@ -34,4 +34,5 @@ public class Product {
     private int quantity;
     @Column(name="photo",length = 1000)
     private byte[] photo;
+
 }

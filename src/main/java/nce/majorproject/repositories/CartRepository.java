@@ -20,4 +20,10 @@ public interface CartRepository extends JpaRepository<Cart,Long>{
         @Transactional
         @Query(value="update Cart set isRemoved=true where userId=?1 and id=?2")
         void removeFromCartDB(User userId, Long id);
-    }
+
+        @Modifying
+        @Transactional
+        @Query(value="update Cart set isRemoved=true where userId=?1 ")
+        void removeAllFromCartDB(User userId);
+
+}

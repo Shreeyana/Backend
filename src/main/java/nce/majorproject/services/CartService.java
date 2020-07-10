@@ -16,5 +16,5 @@ public interface CartService {
     List<ShowInCartById> showCart(CartRequest userId);
     Response addToCart(CartAdd addInCart);
     Response removeFromCart(CartRemove removeInCart);
-
+    Response removeAllFromCart(CartRemove removeAllFromCart);
 }

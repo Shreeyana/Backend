@@ -10,6 +10,7 @@ import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.User;
 import nce.majorproject.repositories.CartRepository;
 import nce.majorproject.services.CartService;
+import nce.majorproject.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,7 +50,7 @@ public class CartServiceImpl implements CartService {
         request.setPrice(cart.getProductId().getPrice());
         request.setCategory(cart.getProductId().getCategory().getName());
         request.setAddedDate(cart.getAddedDate());
-        request.setPhoto(cart.getProductId().getPhoto());
+        request.setPhoto(ImageUtil.decompressBytes(cart.getProductId().getPhoto()));
         request.setSubCategory(cart.getProductId().getSubCategory().getName());
         request.setProduct_id(cart.getProductId().getId());
         request.setProductName(cart.getProductId().getProductName());
@@ -82,6 +83,13 @@ public class CartServiceImpl implements CartService {
         User user=userService.validateUser(removeInCart.getUserid());//validate
         cartRepository.removeFromCartDB(user,removeInCart.getCartid());
         return Response.builder().id(removeInCart.getCartid()).build();// remove
+    }
+
+    @Override
+    public Response removeAllFromCart(CartRemove removeAllCartData) {
+     User user = userService.validateUser(removeAllCartData.getUserid());
+     cartRepository.removeAllFromCartDB(user);
+     return Response.builder().id(removeAllCartData.getUserid()).build();
     }
 
 

@@ -40,5 +40,10 @@ public class CartController {
     public Response addToCart(@RequestBody CartAdd addInCart){
         return cartService.addToCart(addInCart);
     }
+    @PostMapping(value="/remove-all")
+    public Response removeAllfromCart(@RequestBody CartRemove cartRemove){
+        return cartService.removeAllFromCart(cartRemove);
+    }
+
 }
 
