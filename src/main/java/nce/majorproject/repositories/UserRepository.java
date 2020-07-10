@@ -19,4 +19,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select u from User u where u.id=?1")
     User getUserProfile(Long id);
+
+    @Query(value = "select u from User u where u.id=?1")
+    Optional<User>  validateUserById(Long userid);
+
 }

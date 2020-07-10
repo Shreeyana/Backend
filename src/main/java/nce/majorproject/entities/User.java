@@ -35,4 +35,6 @@ public class User {
     private LocalDateTime addedDate;
     @Column(name = "password")
     private String pasword;
+    @Column(name = "login_time")
+    private LocalDateTime loginTime;
 }

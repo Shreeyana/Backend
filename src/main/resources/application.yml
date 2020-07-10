@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/wardRobe
     username: postgres
-    password: root
+    password: slap4msth
     driver-class-name: org.postgresql.Driver
 
   jpa:

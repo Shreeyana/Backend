@@ -7,6 +7,8 @@ import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.entities.Product.Category;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.Product.SubCategory;
+import nce.majorproject.entities.User;
+import nce.majorproject.exception.RestException;
 import nce.majorproject.repositories.product.CategoryRepository;
 import nce.majorproject.repositories.product.ProductRepository;
 import nce.majorproject.repositories.product.SubCategoryRepository;
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl  implements ProductService {
@@ -52,6 +55,7 @@ public class ProductServiceImpl  implements ProductService {
         productList.forEach(latestAddedProductResponse -> {
             LatestAddedProductResponse productResponse=prepareToShowLatestAddedProduct(latestAddedProductResponse);
             productResponseList.add(productResponse);
+            System.out.println(productResponse);
         });
         return productResponseList;
     }
@@ -62,14 +66,19 @@ public class ProductServiceImpl  implements ProductService {
         response.setName(product.getProductName());
         response.setPrice(product.getPrice());
         response.setQuantity(product.getQuantity());
-        response.setPhoto(ImageUtil.decompressBytes(product.getPhoto()));
+        response.setImg(ImageUtil.decompressBytes(product.getPhoto()));
+        response.setCompany(product.getSubCategory().getName());
+        response.setInfo(product.getSubCategory().getName());
+        response.setCount("0");
+        response.setInCart("false");
+        response.setTotal("0");
         return response;
     }
 
     private Product prepareToAddProduct(AddRequest request) throws IOException {
        byte[] image=request.getProductImage().getBytes();
         Product product=new Product();
-        product.setAddedBy("sandip");
+        product.setAddedBy(contextHolderServices.getContext().getFullName());
         product.setAddedDate(LocalDateTime.now());
         Category category=categoryService.validateCategoryId(request.getCategoryId());
         SubCategory subCategory=subCategoryService.validateSubCategoryById(request.getSubCategoryId());;
@@ -79,6 +88,11 @@ public class ProductServiceImpl  implements ProductService {
         product.setPrice(request.getPrice());
         product.setPhoto(ImageUtil.compressBytes(image));
         product.setQuantity(request.getQuantity());
+        return product;
+    }
+    public Product validateProduct(Long productId){
+        Optional<Product> validate = productRepository.validateProductById(productId);
+        Product product=validate.orElseThrow(()->new RestException("invalid product id"));
         return product;
     }
 }
