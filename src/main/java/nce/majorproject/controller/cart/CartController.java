@@ -41,8 +41,14 @@ public class CartController {
         return cartService.addToCart(addInCart);
     }
     @PostMapping(value="/remove-all")
-    public Response removeAllfromCart(@RequestBody CartRemove cartRemove){
+    public Response removeAllFromCart(@RequestBody CartRemove cartRemove){
         return cartService.removeAllFromCart(cartRemove);
+    }
+
+    @GetMapping
+    public List<ShowInCartById> findPopularItem(){
+        log.info("Showing most popular items");
+        return cartService.findPopularProducts();
     }
 
 }

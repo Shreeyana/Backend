@@ -5,6 +5,7 @@ import nce.majorproject.dto.cart.CartAdd;
 import nce.majorproject.dto.cart.CartRemove;
 import nce.majorproject.dto.cart.CartRequest;
 import nce.majorproject.dto.cart.ShowInCartById;
+import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.entities.Cart;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.User;
@@ -90,6 +91,18 @@ public class CartServiceImpl implements CartService {
      User user = userService.validateUser(removeAllCartData.getUserid());
      cartRepository.removeAllFromCartDB(user);
      return Response.builder().id(removeAllCartData.getUserid()).build();
+    }
+
+    @Override
+    public List<ShowInCartById> findPopularProducts() {
+        List<Cart> cartList=cartRepository.findPopular();
+        List<ShowInCartById> response=new ArrayList<>();
+        cartList.forEach(itemInCart ->{
+                    ShowInCartById showInCartResponse=setToShowInCart(itemInCart);
+                    response.add(showInCartResponse);
+                }
+        );
+        return response;
     }
 
 
