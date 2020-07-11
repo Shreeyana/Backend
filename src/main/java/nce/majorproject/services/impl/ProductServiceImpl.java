@@ -60,6 +60,12 @@ public class ProductServiceImpl  implements ProductService {
         return productResponseList;
     }
 
+    @Override
+    public Product validateProduct(Long id) {
+        Optional<Product> product=productRepository.findById(id);
+        return product.orElseThrow(()->new RestException("Product not found."));
+    }
+
     private LatestAddedProductResponse prepareToShowLatestAddedProduct(Product product){
         LatestAddedProductResponse response=new LatestAddedProductResponse();
         response.setId(product.getId());
@@ -90,9 +96,5 @@ public class ProductServiceImpl  implements ProductService {
         product.setQuantity(request.getQuantity());
         return product;
     }
-    public Product validateProduct(Long productId){
-        Optional<Product> validate = productRepository.validateProductById(productId);
-        Product product=validate.orElseThrow(()->new RestException("invalid product id"));
-        return product;
-    }
+
 }

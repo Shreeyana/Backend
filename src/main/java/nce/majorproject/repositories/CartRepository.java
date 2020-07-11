@@ -26,4 +26,7 @@ public interface CartRepository extends JpaRepository<Cart,Long>{
         @Query(value="update Cart set isRemoved=true where userId=?1 ")
         void removeAllFromCartDB(User userId);
 
+        @Query(value = "select c from Cart c where c.isCheckout=false and count(c.productId)>5 ")
+        List<Cart> findPopular();
+
 }

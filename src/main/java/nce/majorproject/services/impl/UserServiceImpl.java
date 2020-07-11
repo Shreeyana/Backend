@@ -53,8 +53,9 @@ public class UserServiceImpl implements UserService {
         user.setUserName(request.getUserName());
         return user;
     }
-    public User validateUser(Long userid){
-    Optional<User> validate=userRepository.validateUserById(userid);
+    @Override
+    public User validateUser(Long userId){
+    Optional<User> validate=userRepository.validateUserById(userId);
     User user=validate.orElseThrow(()->new RestException("invalid user id"));
         return user;
     }
