@@ -11,8 +11,9 @@ import java.time.LocalDateTime;
 public class CommentListResponse {
 
     private Long id;
-    private String status;
-    private LocalDateTime addedDate;
+    private String comment;
+    private Long rating;
+    private LocalDateTime date;
     private Long userId;
-    private String userName;
+    private String author;
 }

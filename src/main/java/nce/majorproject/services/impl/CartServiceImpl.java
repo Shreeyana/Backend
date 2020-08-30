@@ -68,6 +68,7 @@ public class CartServiceImpl implements CartService {
     private Cart addDataInCart(CartAdd cart) {
         Cart response=new Cart();
         Product product=productService.validateProduct(cart.getProduct_id());
+
         User user=userService.validateUser(cart.getUser_id());
         response.setAddedDate(cart.getAddedDate());
         response.setModifiedDate(cart.getAddedDate());

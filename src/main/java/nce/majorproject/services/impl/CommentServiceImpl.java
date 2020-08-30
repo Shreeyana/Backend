@@ -145,11 +145,11 @@ public class CommentServiceImpl implements CommentService {
         User user=userService.validateUser(comment.getUserId().getId());
         CommentListResponse response=new CommentListResponse();
         response.setId(comment.getId());
-        response.setUserName(user.getFullName());
+        response.setAuthor(user.getFullName());
         response.setUserId(user.getId());
         response.setId(comment.getId());
-        response.setStatus(comment.getPostComment());
-        response.setAddedDate(comment.getAddedDate());
+        response.setComment(comment.getPostComment());
+        response.setDate(comment.getAddedDate());
         return response;
     }
 }
