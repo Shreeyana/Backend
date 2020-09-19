@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class AuthRequest {
     @NotBlank(message = "User Name cannot be null")
     private String userName;
-    @Size(min =1,max = 50,message = "Invalid length!!")
+    @Size(min =5,max = 50,message = "Invalid password length!!")
     @NotBlank(message = "Password cannot be null")
     private String password;
 }

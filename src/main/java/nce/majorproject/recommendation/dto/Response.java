@@ -1,4 +1,4 @@
-package nce.majorproject.dto;
+package nce.majorproject.recommendation.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,4 @@ import lombok.Getter;
 @Getter
 @Builder
 public class Response {
-
-    private Long id;
-    private String status;
 }

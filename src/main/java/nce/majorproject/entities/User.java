@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "full_name")
@@ -27,8 +27,8 @@ public class User {
     private String address;
     @Column(name = "dob")
     private LocalDate dob;
-    @Column(name="email")
-    private String email;
+    @Column(name="gender")
+    private String gender;
     @Column(name = "phone")
     private String phone;
     @Column(name = "added_date")

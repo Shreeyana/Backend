@@ -61,9 +61,12 @@ private ContextHolderServices contextHolderServices;
     private boolean isByPassUrl(String url) {
         final String ADMIN_REGISTER_URL= "/v1/api/admin";
         final String ADMIN_LOGIN_URL= "/v1/api/auth/admin";
-        final String USER_REGISTER_URL= "/v1/api/user";
+        final String USER_REGISTER_URL= "/v1/api/user/register";
         final String USER_LOGIN_URL= "/v1/api/auth/user";
-        List<String> byPassUrl = Arrays.asList(ADMIN_REGISTER_URL,ADMIN_LOGIN_URL,USER_REGISTER_URL,USER_LOGIN_URL);
+        final String PRODUCT = "/v1/api/product/latest-added";
+
+        List<String> byPassUrl = Arrays.asList(ADMIN_REGISTER_URL,
+                ADMIN_LOGIN_URL,USER_REGISTER_URL,USER_LOGIN_URL,PRODUCT);
 
         return byPassUrl.stream().anyMatch(url::equalsIgnoreCase);
     }

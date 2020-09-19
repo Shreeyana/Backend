@@ -16,4 +16,5 @@ public class LatestAddedProductResponse {
     private String inCart;
     private String count;
     private String total;
+    private String category;
 }
