@@ -78,6 +78,7 @@ public class ProductServiceImpl  implements ProductService {
         response.setCount("0");
         response.setInCart("false");
         response.setTotal("0");
+        response.setCategory(product.getCategory().getName());
         return response;
     }
 

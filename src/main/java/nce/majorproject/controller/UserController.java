@@ -23,9 +23,9 @@ public class UserController {
     }
 //    @GetMapping
 //    public Response showCart(){}
-    @PostMapping
+    @PostMapping("/register")
     public Response addUser(@Valid @RequestBody UserAddRequest request){
-        log.info("adding user::{}{}",request.getFullName(),request.getEmail());
+        log.info("adding user::{}{}",request.getFullName());
         return userService.addUser(request);
     }
 

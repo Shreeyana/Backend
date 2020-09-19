@@ -9,6 +9,6 @@ public class UserProfileResponse {
 
     private String userName;
     private Long userId;
-    private String email;
+    private String gender;
     private String address;
 }
