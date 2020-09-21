@@ -43,6 +43,7 @@ private void verifyUserAge(LocalDate dob){
 }
     @Override
     public UserProfileResponse getProfile() {
+        //1
 //        System.out.println(contextHolderServices.getContext().getId());
         User user=userRepository.getUserProfile(contextHolderServices.getContext().getId());
         return UserProfileResponse.builder().address(user.getAddress()).gender(user.getGender()).userId(user.getId()).userName(user.getFullName()).build();
