@@ -1,5 +1,6 @@
 package nce.majorproject.services.impl;
 
+import nce.majorproject.context.ContextHolderServices;
 import nce.majorproject.dto.Response;
 import nce.majorproject.dto.cart.CartAdd;
 import nce.majorproject.dto.cart.CartRemove;
@@ -23,24 +24,28 @@ public class CartServiceImpl implements CartService {
     private CartRepository cartRepository;
     private UserServiceImpl userService;
     private ProductServiceImpl productService;
+    private ContextHolderServices contextHolderServices;
     @Autowired
     public CartServiceImpl(CartRepository cartRepository,
                            ProductServiceImpl productService,
-                           UserServiceImpl userService){
+                           UserServiceImpl userService,
+                           ContextHolderServices contextHolderServices){
         this.cartRepository=cartRepository;
         this.userService=userService;
         this.productService=productService;
+        this.contextHolderServices = contextHolderServices;
     }
     @Override
     public List<ShowInCartById> showCart(CartRequest cartShow) {
-        User user=userService.validateUser(cartShow.getUserid());//validation
+        User user=userService.validateUser(contextHolderServices.getContext().getId());//validation
         List<Cart> getCart=cartRepository.findCartById(user);
+
         List<ShowInCartById> response=new ArrayList<>();
         getCart.forEach(itemInCart ->{
                     ShowInCartById showInCartResponse=setToShowInCart(itemInCart);
                     response.add(showInCartResponse);
-                }
-        );
+                });
+        System.out.println(response);
         return response;
     }
 
@@ -69,7 +74,7 @@ public class CartServiceImpl implements CartService {
         Cart response=new Cart();
         Product product=productService.validateProduct(cart.getProduct_id());
 
-        User user=userService.validateUser(cart.getUser_id());
+        User user=userService.validateUser(contextHolderServices.getContext().getId());
         response.setAddedDate(cart.getAddedDate());
         response.setModifiedDate(cart.getAddedDate());
         response.setCheckout(false);
@@ -82,16 +87,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Response removeFromCart(CartRemove removeInCart) {
-        User user=userService.validateUser(removeInCart.getUserid());//validate
+        User user=userService.validateUser(contextHolderServices.getContext().getId());//validate
         cartRepository.removeFromCartDB(user,removeInCart.getCartid());
-        return Response.builder().id(removeInCart.getCartid()).build();// remove
+        return Response.builder().status("SUCCESS").build();
     }
 
     @Override
     public Response removeAllFromCart(CartRemove removeAllCartData) {
-     User user = userService.validateUser(removeAllCartData.getUserid());
+     User user = userService.validateUser(contextHolderServices.getContext().getId());
      cartRepository.removeAllFromCartDB(user);
-     return Response.builder().id(removeAllCartData.getUserid()).build();
+     return Response.builder().status("SUCCESS").build();
     }
 
     @Override

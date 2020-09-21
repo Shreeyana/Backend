@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface CartRepository extends JpaRepository<Cart,Long>{
 
-        @Query(value = "select c from Cart c where c.userId=?1 and c.isRemoved=false and c.isCheckout=false ")
+        @Query(value = "select c from Cart c where c.userId=:userId and c.isRemoved=false and c.isCheckout=false ")
         List<Cart> findCartById(User userId);
 
         @Modifying
