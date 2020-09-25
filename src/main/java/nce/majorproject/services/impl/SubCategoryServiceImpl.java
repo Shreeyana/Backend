@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,6 +43,12 @@ public class SubCategoryServiceImpl  implements SubCategoryService {
         SubCategory response=subCategoryRepository.save(subCategory);
         return Response.builder().id(response.getId()).build();
     }
+
+    @Override
+    public List<SubCategory> listSubCategory() {
+        return this.subCategoryRepository.findAll();
+    }
+
     private SubCategory prepareSubCategoryAddData(SubCategoryRequest request){
         SubCategory subCategory=new SubCategory();
         Category category=categoryService.validateCategoryId(request.getCategoryId());

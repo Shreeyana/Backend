@@ -7,6 +7,8 @@ import nce.majorproject.dto.product.AddRequest;
 import nce.majorproject.dto.product.CategoryRequest;
 import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.dto.product.SubCategoryRequest;
+import nce.majorproject.entities.Product.Category;
+import nce.majorproject.entities.Product.SubCategory;
 import nce.majorproject.services.CategoryService;
 import nce.majorproject.services.ProductService;
 import nce.majorproject.services.SubCategoryService;
@@ -52,5 +54,14 @@ public class ProductController {
     public List<LatestAddedProductResponse> getLatest(){
         log.info("latest added::");
         return productService.showLatestAdded();
+    }
+    @GetMapping(value = "/list-category")
+    public List<Category> listCategory(){
+        return categoryService.listCategory();
+    }
+
+    @GetMapping(value = "/list-sub-category")
+    public List<SubCategory> listSubCategory(){
+        return subCategoryService.listSubCategory();
     }
 }
