@@ -44,9 +44,17 @@ private ContextHolderServices contextHolderServices;
                 String jwtToken=requestTokenHeader.substring(7);
                 String username=jwtTokenUtil.getUsernameFromToken(jwtToken);
                 String userType=jwtTokenUtil.getByKey(jwtToken,"userType");
+                if(userType.equalsIgnoreCase("Admin")){
+                    contextHolderServices.setContextForAdmin(username);
+                }
+                else{
+                    contextHolderServices.setContextForUser(username);
+                }
                 log.info("Username from token:: " + username + "" + userType);
-                contextHolderServices.setContextForUser(username);
+
+//                System.out.println(contextHolderServices.getContext().getFullName());
             }else {
+                log.info(url);
                 log.error("JWT Token does not begin with Bearer String");
                 throw new RestException("Invalid access token");
             }
@@ -59,14 +67,16 @@ private ContextHolderServices contextHolderServices;
 
     }
     private boolean isByPassUrl(String url) {
-        final String ADMIN_REGISTER_URL= "/v1/api/admin";
+        final String ADMIN_REGISTER_URL= "/v1/api/admin/add";
         final String ADMIN_LOGIN_URL= "/v1/api/auth/admin";
         final String USER_REGISTER_URL= "/v1/api/user/register";
         final String USER_LOGIN_URL= "/v1/api/auth/user";
         final String PRODUCT = "/v1/api/product/latest-added";
+        final String RECOMMENDATION = "/v1/api/recommendation/all";
+        final String PRODUCTID = "/v1/api/product/get-product-by-id";
 
         List<String> byPassUrl = Arrays.asList(ADMIN_REGISTER_URL,
-                ADMIN_LOGIN_URL,USER_REGISTER_URL,USER_LOGIN_URL,PRODUCT);
+                ADMIN_LOGIN_URL,USER_REGISTER_URL,USER_LOGIN_URL,PRODUCT,RECOMMENDATION,PRODUCTID);
 
         return byPassUrl.stream().anyMatch(url::equalsIgnoreCase);
     }

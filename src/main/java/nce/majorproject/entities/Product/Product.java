@@ -14,8 +14,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "product_name")
     private String productName;
+
     @Column(name = "product_colour")
     private String colour;
     @Column(name = "price")
@@ -28,6 +30,11 @@ public class Product {
     @OneToOne
     @JoinColumn(name ="subcategory_id",referencedColumnName = "id")
     private SubCategory subCategory;
+
+    @OneToOne
+    @JoinColumn(name = "sub_sub_category_id",referencedColumnName = "id")
+    private SubSubCategory subSubCategory;
+
     @Column(name = "added_by")
     private String addedBy;
     @Column(name = "quantity")

@@ -33,8 +33,10 @@ public class ProductServiceImpl  implements ProductService {
     private ContextHolderServices contextHolderServices;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, CategoryService categoryService,
-                              SubCategoryService subCategoryService, ContextHolderServices contextHolderServices) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              CategoryService categoryService,
+                              SubCategoryService subCategoryService,
+                              ContextHolderServices contextHolderServices) {
         this.productRepository = productRepository;
         this.categoryService = categoryService;
         this.subCategoryService = subCategoryService;
@@ -43,6 +45,7 @@ public class ProductServiceImpl  implements ProductService {
 
     @Override
     public Response addProducts(AddRequest request) throws IOException {
+        //System.out.println(contextHolderServices.getContext().getFullName());
         Product product=prepareToAddProduct(request);
         Product response=productRepository.save(product);
         return Response.builder().id(response.getId()).build();
@@ -66,8 +69,14 @@ public class ProductServiceImpl  implements ProductService {
         return product.orElseThrow(()->new RestException("Product not found."));
     }
 
-    private LatestAddedProductResponse prepareToShowLatestAddedProduct(Product product){
-        LatestAddedProductResponse response=new LatestAddedProductResponse();
+    @Override
+    public LatestAddedProductResponse getProductById(Long id) {
+        Product product = validateProduct(id);
+        return prepareToShowLatestAddedProduct(product);
+    }
+
+    private LatestAddedProductResponse prepareToShowLatestAddedProduct(Product product) {
+        LatestAddedProductResponse response = new LatestAddedProductResponse();
         response.setId(product.getId());
         response.setName(product.getProductName());
         response.setPrice(product.getPrice());
@@ -79,159 +88,14 @@ public class ProductServiceImpl  implements ProductService {
         response.setInCart("false");
         response.setTotal("0");
         response.setCategory(product.getCategory().getName());
+        response.setSubSubCategory(product.getSubSubCategory().getName());
         return response;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     private Product prepareToAddProduct(AddRequest request) throws IOException {
        byte[] image=request.getProductImage().getBytes();
         Product product=new Product();
-        product.setAddedBy(contextHolderServices.getContext().getFullName());
+        product.setAddedBy(this.contextHolderServices.getContext().getUserType());
         product.setAddedDate(LocalDateTime.now());
         Category category=categoryService.validateCategoryId(request.getCategoryId());
         SubCategory subCategory=subCategoryService.validateSubCategoryById(request.getSubCategoryId());;
@@ -241,6 +105,8 @@ public class ProductServiceImpl  implements ProductService {
         product.setPrice(request.getPrice());
         product.setPhoto(ImageUtil.compressBytes(image));
         product.setQuantity(request.getQuantity());
+        product.setSubSubCategory(subCategoryService.validateSubSubCategoryId(request.getSubSubCategoryId()));
+        product.setProductName(request.getName());
         return product;
     }
 

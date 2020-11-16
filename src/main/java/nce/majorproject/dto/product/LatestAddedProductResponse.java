@@ -17,4 +17,5 @@ public class LatestAddedProductResponse {
     private String count;
     private String total;
     private String category;
+    private String subSubCategory;
 }

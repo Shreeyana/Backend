@@ -52,6 +52,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse authenticateAdmin(AuthRequest request) {
+        System.out.println( SecurityUtil.encode(request.getPassword()));
         Optional<Admin> optionalAdmin=adminRepository.authenticateAdminCredential(request.getUserName(), SecurityUtil.encode(request.getPassword()));
         Admin admin= optionalAdmin.orElseThrow(()->new RestException("invalid login credentials!!"));
         final String accessToken= jwtTokenUtil.generateToken(this.prepareClaims(admin.getUserName(),admin.getId(), UserType.Admin.name()));

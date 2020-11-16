@@ -32,6 +32,12 @@ public class AddRequest {
     @PartType("text/plain")
     private Long categoryId;
 
+
+    @NotNull(message = "sub-sub-category cannot be null")
+    @FormParam("subSubCategoryId")
+    @PartType("text/plain")
+    private Long subSubCategoryId;
+
     @NotNull(message = "Sub Category Id is mandatory")
     @FormParam("subCategoryId")
     @PartType("text/plain")
