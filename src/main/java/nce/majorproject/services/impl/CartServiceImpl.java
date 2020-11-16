@@ -2,14 +2,12 @@ package nce.majorproject.services.impl;
 
 import nce.majorproject.context.ContextHolderServices;
 import nce.majorproject.dto.Response;
-import nce.majorproject.dto.cart.CartAdd;
-import nce.majorproject.dto.cart.CartRemove;
-import nce.majorproject.dto.cart.CartRequest;
-import nce.majorproject.dto.cart.ShowInCartById;
+import nce.majorproject.dto.cart.*;
 import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.entities.Cart;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.User;
+import nce.majorproject.exception.RestException;
 import nce.majorproject.repositories.CartRepository;
 import nce.majorproject.services.CartService;
 import nce.majorproject.util.ImageUtil;
@@ -109,6 +107,32 @@ public class CartServiceImpl implements CartService {
                 }
         );
         return response;
+    }
+
+    @Override
+    public Response checkOutAllCart() {
+
+        User user = userService.validateUser(contextHolderServices.getContext().getId());
+        this.cartRepository.checkOutFromCart(user);
+        return Response.builder().id(user.getId()).build();
+    }
+
+    @Override
+    public Response checkOutByCartId(Long cartId) {
+
+        User user = userService.validateUser(contextHolderServices.getContext().getId());
+
+        cartRepository.findById(cartId).orElseThrow(()->new RestException("Invalid Cart id"));
+
+        this.cartRepository.checkOutFromCart(user,cartId);
+
+        return Response.builder().id(cartId).build();
+    }
+
+    @Override
+    public List<Cart> listCheckout() {
+        User validUser = userService.validateUser(contextHolderServices.getContext().getId());
+        return cartRepository.findCheckoutProduct(validUser);
     }
 
 

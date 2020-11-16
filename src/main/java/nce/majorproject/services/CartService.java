@@ -3,10 +3,7 @@ package nce.majorproject.services;
 
 
 import nce.majorproject.dto.Response;
-import nce.majorproject.dto.cart.CartAdd;
-import nce.majorproject.dto.cart.CartRemove;
-import nce.majorproject.dto.cart.CartRequest;
-import nce.majorproject.dto.cart.ShowInCartById;
+import nce.majorproject.dto.cart.*;
 import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.entities.Cart;
 
@@ -23,4 +20,10 @@ public interface CartService {
     Response removeAllFromCart(CartRemove removeAllFromCart);
 
     List<ShowInCartById> findPopularProducts();
+
+    Response checkOutAllCart();
+
+    Response checkOutByCartId(Long cartId);
+
+    List<Cart> listCheckout();
 }

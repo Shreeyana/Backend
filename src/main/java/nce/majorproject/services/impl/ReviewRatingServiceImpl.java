@@ -5,6 +5,7 @@ import nce.majorproject.context.ContextHolderServices;
 import nce.majorproject.dto.AddReviewRatingRequest;
 import nce.majorproject.dto.IdResponse;
 import nce.majorproject.dto.Reviews;
+import nce.majorproject.dto.product.RatingResponse;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.ReviewRating;
 import nce.majorproject.entities.User;
@@ -90,7 +91,7 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
     }
 
     @Override
-    public float countAverageRating(Long id){
+    public RatingResponse countAverageRating(Long id){
         float data=0;
         Product product=productService.validateProduct(id);
         try {
@@ -98,7 +99,10 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
         }catch (Exception e){
             log.info("no ratings");
         }
-        return data;
+        return RatingResponse.builder()
+                .productId(id)
+                .rating(data)
+                .build();
     }
 
     @Override

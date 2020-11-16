@@ -38,7 +38,7 @@ public class ContextHolderServices {
 //        System.out.println("test1");
 //    }
 
-    private void setContextForAdmin(String username) {
+    public void setContextForAdmin(String username) {
         Optional<Admin> adminOptional = adminRepository.validateUserName(username);
         adminOptional.ifPresent(admin -> {
             ContextHolder thread = new ContextHolder(admin.getId(),UserType.Admin.name(),admin.getUserName());

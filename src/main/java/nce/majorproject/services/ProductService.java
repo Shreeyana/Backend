@@ -14,4 +14,6 @@ public interface ProductService {
     Response addProducts(AddRequest request) throws IOException;
     List<LatestAddedProductResponse> showLatestAdded();
     Product validateProduct(Long id);
+
+    LatestAddedProductResponse getProductById(Long id);
 }

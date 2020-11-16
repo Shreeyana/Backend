@@ -11,10 +11,8 @@ import javax.validation.constraints.Size;
 public class AddReviewRatingRequest {
 
 
-    @Size(min = 1,max = 224,message = "You have exceed maximum Review length!!")
     private String review;
 
-    @Size(max = 5,message = "invalid length!!")
     private int rating;
 
     @NotNull(message = "Review Done to cannot be null!!")

@@ -29,4 +29,16 @@ public interface CartRepository extends JpaRepository<Cart,Long>{
         @Query(value = "select c from Cart c where c.isCheckout=false and count(c.productId)>5 ")
         List<Cart> findPopular();
 
+        @Modifying
+        @Transactional
+        @Query(value = "update Cart set isCheckout=true where userId=:user and isRemoved=false")
+        void checkOutFromCart(User user);
+
+        @Modifying
+        @Transactional
+        @Query(value = "update Cart set isCheckout=true where userId=:user and isRemoved=false and id=:cartId")
+        void checkOutFromCart(User user,Long cartId);
+
+        @Query(value = "select cart from Cart cart where cart.userId=:validUser and cart.isRemoved=false and cart.isCheckout=true")
+        List<Cart> findCheckoutProduct(User validUser);
 }
