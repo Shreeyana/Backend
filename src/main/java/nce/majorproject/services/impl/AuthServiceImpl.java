@@ -40,9 +40,17 @@ public class AuthServiceImpl implements AuthService {
         user.setLoginTime(LocalDateTime.now());
         userRepository.save(user);
         final String token= jwtTokenUtil.generateToken(this.prepareClaims(user.getUserName(),user.getId(), UserType.User.name()));
-        return UserAuthResponse.builder().accessToken(token).
-                user(user).
-                build();
+        return UserAuthResponse.builder().accessToken(token)
+                .id(user.getId())
+                .addedDate(user.getAddedDate())
+                .address(user.getAddress())
+                .dob(user.getDob())
+                .fullName(user.getFullName())
+                .gender(user.getGender())
+                .loginTime(user.getLoginTime())
+                .phone(user.getPhone())
+                .userName(user.getUserName())
+                .build();
 
     }
     private Map<String, Object> prepareClaims(String userName, Long id, String type) {
