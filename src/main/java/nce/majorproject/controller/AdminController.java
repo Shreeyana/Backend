@@ -4,14 +4,14 @@ import lombok.extern.slf4j.Slf4j;
 import nce.majorproject.constant.Route;
 import nce.majorproject.dto.AdminRegisterRequest;
 import nce.majorproject.dto.Response;
+import nce.majorproject.dto.UserProfileResponse;
+import nce.majorproject.entities.User;
 import nce.majorproject.services.AdminServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(Route.ADMIN)
@@ -28,6 +28,11 @@ public class AdminController {
     public Response addAdmin(@Valid @RequestBody AdminRegisterRequest registerRequest){
         log.info("registering new admin::{}{}",registerRequest.getFullName(),registerRequest.getUserName());
         return adminServices.addAdmin(registerRequest);
+    }
+    @GetMapping(value = "/get-registered-users")
+    public List<User> getRegisteredUsers(){
+        log.info("getting registered users List");
+        return  adminServices.getRegisteredUsers();
     }
     //asmin test123
 

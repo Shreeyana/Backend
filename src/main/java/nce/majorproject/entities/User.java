@@ -1,5 +1,6 @@
 package nce.majorproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,8 +34,10 @@ public class User {
     private String phone;
     @Column(name = "added_date")
     private LocalDateTime addedDate;
+    @JsonIgnore
     @Column(name = "password")
     private String pasword;
+    @JsonIgnore
     @Column(name = "login_time")
     private LocalDateTime loginTime;
 }
