@@ -1,10 +1,9 @@
 package nce.majorproject.services.impl;
 
-import nce.majorproject.context.ContextHolder;
 import nce.majorproject.context.ContextHolderServices;
 import nce.majorproject.dto.AdminRegisterRequest;
 import nce.majorproject.dto.Response;
-import nce.majorproject.dto.UserProfileResponse;
+
 import nce.majorproject.entities.Admin;
 import nce.majorproject.entities.User;
 import nce.majorproject.repositories.AdminRepository;

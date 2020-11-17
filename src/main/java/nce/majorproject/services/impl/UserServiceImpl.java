@@ -83,7 +83,17 @@ public class UserServiceImpl implements UserService {
         //1
 //        System.out.println(contextHolderServices.getContext().getId());
         User user=userRepository.getUserProfile(contextHolderServices.getContext().getId());
-        return UserProfileResponse.builder().address(user.getAddress()).gender(user.getGender()).userId(user.getId()).userName(user.getFullName()).build();
+        return UserProfileResponse.builder().
+                address(user.getAddress()).
+                gender(user.getGender()).
+                id(user.getId()).
+                userName(user.getFullName())
+                .addedDate(user.getAddedDate())
+                .fullName(user.getFullName())
+                .phone(user.getPhone())
+                .dob(user.getDob())
+                .loginTime(user.getLoginTime())
+                .build();
     }
 
     private User prepareUserAddRequest(UserAddRequest request){
