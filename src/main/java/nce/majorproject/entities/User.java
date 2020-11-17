@@ -37,7 +37,7 @@ public class User {
     @JsonIgnore
     @Column(name = "password")
     private String pasword;
-    @JsonIgnore
+
     @Column(name = "login_time")
     private LocalDateTime loginTime;
 }

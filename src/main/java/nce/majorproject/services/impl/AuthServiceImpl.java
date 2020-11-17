@@ -3,6 +3,7 @@ package nce.majorproject.services.impl;
 import nce.majorproject.constant.UserType;
 import nce.majorproject.dto.AuthRequest;
 import nce.majorproject.dto.AuthResponse;
+import nce.majorproject.dto.UserAuthResponse;
 import nce.majorproject.entities.Admin;
 import nce.majorproject.entities.User;
 import nce.majorproject.exception.RestException;
@@ -33,13 +34,15 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse authenticateUser(AuthRequest request) {
+    public UserAuthResponse authenticateUser(AuthRequest request) {
         Optional<User> optionalUser=userRepository.authenticateUserCredential(request.getUserName(), SecurityUtil.encode(request.getPassword()));
         User user= optionalUser.orElseThrow(()->new RestException("invalid login credentials!!"));
         user.setLoginTime(LocalDateTime.now());
         userRepository.save(user);
         final String token= jwtTokenUtil.generateToken(this.prepareClaims(user.getUserName(),user.getId(), UserType.User.name()));
-        return AuthResponse.builder().accessToken(token).build();
+        return UserAuthResponse.builder().accessToken(token).
+                user(user).
+                build();
 
     }
     private Map<String, Object> prepareClaims(String userName, Long id, String type) {

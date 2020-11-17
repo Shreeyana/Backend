@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import nce.majorproject.constant.Route;
 import nce.majorproject.dto.AuthRequest;
 import nce.majorproject.dto.AuthResponse;
+import nce.majorproject.dto.UserAuthResponse;
 import nce.majorproject.services.AuthService;
 import nce.majorproject.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class AuthController {
         return authService.authenticateAdmin(request);
     }
     @PostMapping(value = "/user")
-    public AuthResponse authenticateUser(@Valid @RequestBody AuthRequest request){
+    public UserAuthResponse authenticateUser(@Valid @RequestBody AuthRequest request){
         log.info("authenticating user::{}",request.getUserName());
         //log.info("Encode: ", SecurityUtil.encode("slap4msth").toString());
         return authService.authenticateUser(request);
