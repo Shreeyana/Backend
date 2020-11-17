@@ -38,18 +38,18 @@ public class AuthServiceImpl implements AuthService {
         Optional<User> optionalUser=userRepository.authenticateUserCredential(request.getUserName(), SecurityUtil.encode(request.getPassword()));
         User user= optionalUser.orElseThrow(()->new RestException("invalid login credentials!!"));
         user.setLoginTime(LocalDateTime.now());
-        userRepository.save(user);
+        User response = userRepository.save(user);
         final String token= jwtTokenUtil.generateToken(this.prepareClaims(user.getUserName(),user.getId(), UserType.User.name()));
         return UserAuthResponse.builder().accessToken(token)
-                .id(user.getId())
-                .addedDate(user.getAddedDate())
-                .address(user.getAddress())
-                .dob(user.getDob())
-                .fullName(user.getFullName())
-                .gender(user.getGender())
-                .loginTime(user.getLoginTime())
-                .phone(user.getPhone())
-                .userName(user.getUserName())
+                .id(response.getId())
+                .addedDate(response.getAddedDate())
+                .address(response.getAddress())
+                .dob(response.getDob())
+                .fullName(response.getFullName())
+                .gender(response.getGender())
+                .loginTime(response.getLoginTime())
+                .phone(response.getPhone())
+                .userName(response.getUserName())
                 .build();
 
     }
