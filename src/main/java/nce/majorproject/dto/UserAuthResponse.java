@@ -5,9 +5,20 @@ import lombok.Getter;
 import lombok.Setter;
 import nce.majorproject.entities.User;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Getter
 @Builder
 public class UserAuthResponse {
     private String accessToken;
-    private User user;
+    private Long id;
+    private String fullName;
+    private String userName;
+    private String address;
+    private LocalDate dob;
+    private String gender;
+    private String phone;
+    private LocalDateTime addedDate;
+    private LocalDateTime loginTime;
 }
