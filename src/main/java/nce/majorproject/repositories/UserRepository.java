@@ -1,11 +1,13 @@
 package nce.majorproject.repositories;
 
+import nce.majorproject.dto.UserProfileResponse;
 import nce.majorproject.entities.Admin;
 import nce.majorproject.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,4 +25,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query(value = "select u from User u where u.id=?1")
     Optional<User>  validateUserById(Long userid);
 
+    @Query(value = "select user from User user")
+    List<User> getAllUsers();
 }
