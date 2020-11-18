@@ -12,11 +12,10 @@ import nce.majorproject.exception.RestException;
 import nce.majorproject.repositories.product.CategoryRepository;
 import nce.majorproject.repositories.product.ProductRepository;
 import nce.majorproject.repositories.product.SubCategoryRepository;
-import nce.majorproject.services.CategoryService;
-import nce.majorproject.services.ProductService;
-import nce.majorproject.services.SubCategoryService;
+import nce.majorproject.services.*;
 import nce.majorproject.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -31,16 +30,21 @@ public class ProductServiceImpl  implements ProductService {
     private CategoryService categoryService;
     private SubCategoryService subCategoryService;
     private ContextHolderServices contextHolderServices;
-
+    private CommentService commentService;
+    private ReviewRatingService reviewRatingService;
     @Autowired
     public ProductServiceImpl(ProductRepository productRepository,
                               CategoryService categoryService,
                               SubCategoryService subCategoryService,
-                              ContextHolderServices contextHolderServices) {
+                              ContextHolderServices contextHolderServices,
+                              @Lazy CommentService commentService,
+                              @Lazy ReviewRatingService reviewRatingService) {
         this.productRepository = productRepository;
         this.categoryService = categoryService;
         this.subCategoryService = subCategoryService;
         this.contextHolderServices = contextHolderServices;
+        this.commentService = commentService;
+        this.reviewRatingService = reviewRatingService;
     }
 
     @Override
@@ -89,6 +93,8 @@ public class ProductServiceImpl  implements ProductService {
         response.setTotal("0");
         response.setCategory(product.getCategory().getName());
         response.setSubSubCategory(product.getSubSubCategory().getName());
+        response.setRating(reviewRatingService.countAverageRating(product.getId()));
+        response.setComment(commentService.getAllCommentFromPostId(product.getId()));
         return response;
     }
 
