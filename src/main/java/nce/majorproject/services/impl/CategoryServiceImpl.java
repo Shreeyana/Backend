@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Response addCategory(CategoryRequest request) {
        Category category=prepareToAddCategory(request);
        Category response=categoryRepository.save(category);
-       return Response.builder().id(response.getId()).build();
+       return Response.builder().id(response.getId()).status("Category Added Successfully").build();
     }
 
     @Override
