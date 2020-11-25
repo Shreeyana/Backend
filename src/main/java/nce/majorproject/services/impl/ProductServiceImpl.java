@@ -52,7 +52,7 @@ public class ProductServiceImpl  implements ProductService {
         //System.out.println(contextHolderServices.getContext().getFullName());
         Product product=prepareToAddProduct(request);
         Product response=productRepository.save(product);
-        return Response.builder().id(response.getId()).build();
+        return Response.builder().id(response.getId()).status("Product Added Successfully").build();
     }
 
     @Override

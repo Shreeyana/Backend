@@ -47,7 +47,7 @@ public class SubCategoryServiceImpl  implements SubCategoryService {
     public Response addSubCategory(SubCategoryRequest request) {
         SubCategory subCategory=prepareSubCategoryAddData(request);
         SubCategory response=subCategoryRepository.save(subCategory);
-        return Response.builder().id(response.getId()).build();
+        return Response.builder().id(response.getId()).status("Subcategory added successfully").build();
     }
 
     @Override
@@ -62,6 +62,7 @@ public class SubCategoryServiceImpl  implements SubCategoryService {
         return Response
                 .builder()
                 .id(response.getId())
+                .status("SubSubCategory Added Successfully")
                 .build();
     }
 
