@@ -65,7 +65,7 @@ public class CartServiceImpl implements CartService {
     public Response addToCart(CartAdd addInCart) {
         Cart addCart=addDataInCart(addInCart);
         Cart response=cartRepository.save(addCart);
-        return Response.builder().id(response.getId()).build();
+        return Response.builder().id(response.getId()).status("Item added to cart successfully").build();
     }
 
     private Cart addDataInCart(CartAdd cart) {
