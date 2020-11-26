@@ -8,9 +8,11 @@ import nce.majorproject.dto.CommentResponse;
 import nce.majorproject.dto.CountResponse;
 import nce.majorproject.entities.Comment;
 import nce.majorproject.entities.Product.Product;
+import nce.majorproject.entities.ReviewRating;
 import nce.majorproject.entities.User;
 import nce.majorproject.exception.RestException;
 import nce.majorproject.repositories.CommentRepository;
+import nce.majorproject.repositories.ReviewRatingRepository;
 import nce.majorproject.services.CommentService;
 import nce.majorproject.services.ProductService;
 import nce.majorproject.services.UserService;
@@ -31,6 +33,7 @@ public class CommentServiceImpl implements CommentService {
     private UserService userService;
     private ProductService productService;
     private CommentRepository commentRepository;
+    private ReviewRatingRepository reviewRatingRepository;
 
     @Autowired
     public CommentServiceImpl(ContextHolderServices contextHolderServices, UserService userService,
@@ -80,7 +83,7 @@ public class CommentServiceImpl implements CommentService {
         List<Comment> commentList= commentRepository.getCommentsByPostId(product,false,false);
         List<CommentListResponse> commentResponseList=new ArrayList<>();
         commentList.forEach(comment -> {
-            CommentListResponse commentResponse=prepareResponseCommentListView(comment);
+            CommentListResponse commentResponse=prepareResponseCommentListView(comment,product);
             commentResponseList.add(commentResponse);
         });
         return commentResponseList;
@@ -141,8 +144,9 @@ public class CommentServiceImpl implements CommentService {
         return  comment;
     }
 
-    private CommentListResponse prepareResponseCommentListView(Comment comment){
+    private CommentListResponse prepareResponseCommentListView(Comment comment,Product product){
         User user=userService.validateUser(comment.getUserId().getId());
+        float rating = findRatingByUser(user,product);
         CommentListResponse response=new CommentListResponse();
         response.setId(comment.getId());
         response.setAuthor(user.getFullName());
@@ -150,6 +154,16 @@ public class CommentServiceImpl implements CommentService {
         response.setId(comment.getId());
         response.setComment(comment.getPostComment());
         response.setDate(comment.getAddedDate());
+        response.setRating(rating);
         return response;
+    }
+    private float findRatingByUser(User user , Product product){
+        ReviewRating reviewRating=null;
+        try {
+            reviewRating = this.reviewRatingRepository.findByUserAndProduct(user, product).get();
+        }catch (Exception e){
+            log.info("No rating found");
+        }
+        return  reviewRating.getRating();
     }
 }

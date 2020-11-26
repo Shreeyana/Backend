@@ -12,7 +12,7 @@ public class CommentListResponse {
 
     private Long id;
     private String comment;
-    private Long rating;
+    private float rating;
     private LocalDateTime date;
     private Long userId;
     private String author;

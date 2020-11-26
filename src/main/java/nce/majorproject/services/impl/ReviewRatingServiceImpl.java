@@ -93,15 +93,18 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
     @Override
     public RatingResponse countAverageRating(Long id){
         float data=0;
+        float ratingCount=0;
         Product product=productService.validateProduct(id);
         try {
             data=reviewRatingRepository.findNoOfRatings(product);
+            ratingCount =reviewRatingRepository.countTotalReviews(product);
         }catch (Exception e){
             log.info("no ratings");
         }
         return RatingResponse.builder()
                 .productId(id)
                 .rating(data)
+                .ratingCount(ratingCount)
                 .build();
     }
 
