@@ -164,6 +164,9 @@ public class CommentServiceImpl implements CommentService {
         }catch (Exception e){
             log.info("No rating found");
         }
+        if(reviewRating!=null){
         return  reviewRating.getRating();
+        }
+        return 0;
     }
 }
