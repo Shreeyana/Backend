@@ -37,6 +37,10 @@ public class SubCategoryServiceImpl  implements SubCategoryService {
     }
 
     @Override
+    public Boolean validateSubSUbCategoryByName(String value){
+        return subSubCategoryRepository.findByName(value).isPresent();
+    }
+    @Override
     public SubCategory validateSubCategoryById(Long id) {
         Optional<SubCategory> optionalSubCategory=subCategoryRepository.validateSubCategoryById(id);
         SubCategory subCategory=optionalSubCategory.orElseThrow(()->new RestException("invalid sub category!!"));

@@ -74,6 +74,19 @@ public class ProductServiceImpl  implements ProductService {
     }
 
     @Override
+    public List<LatestAddedProductResponse> randomProduct() {
+        List<Product> productList=productRepository.randomProduct();
+        List<LatestAddedProductResponse> productResponseList=new ArrayList<>();
+        //todo randomize product
+        productList.forEach(latestAddedProductResponse -> {
+            LatestAddedProductResponse productResponse=prepareToShowLatestAddedProduct(latestAddedProductResponse);
+            productResponseList.add(productResponse);
+            System.out.println(productResponse);
+        });
+        return productResponseList;
+    }
+
+    @Override
     public LatestAddedProductResponse getProductById(Long id) {
         Product product = validateProduct(id);
         return prepareToShowLatestAddedProduct(product);

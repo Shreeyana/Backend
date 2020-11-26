@@ -1,5 +1,6 @@
 package nce.majorproject.recommendation.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -27,4 +27,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select user from User user")
     List<User> getAllUsers();
+
+    @Query(value = "select user from User user where user.id NOT  in ?1")
+    List<User>findOtherUsers(Long userId);
 }

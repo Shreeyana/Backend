@@ -37,7 +37,7 @@ public class DateUtil {
         }
     }
     public static Long getAge(LocalDate dob){
-        return  Long.valueOf(Period.between( LocalDate.now() , dob ).getYears());
+        return  Long.valueOf(Period.between(  dob,LocalDate.now()  ).getYears());
 
     }
 

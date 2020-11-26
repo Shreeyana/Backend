@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface SubCategoryService {
 
+    Boolean validateSubSUbCategoryByName(String value);
+
     SubCategory validateSubCategoryById(Long id);
     Response addSubCategory(SubCategoryRequest request);
     List<SubCategory> listSubCategory();
