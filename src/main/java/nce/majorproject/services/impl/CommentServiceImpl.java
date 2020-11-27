@@ -46,9 +46,16 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentListResponse> addComment(CommentRequest commentRequest) throws Exception {
+        validateAlreadyCommented(commentRequest);
         Comment comment=prepareToAddComment(commentRequest);
         commentRepository.save(comment);
         return getAllCommentFromPostId(commentRequest.getProductId());
+    }
+    private void validateAlreadyCommented(CommentRequest commentRequest){
+        if(commentRepository.findByUserAndProduct(userService.validateUser( commentRequest.getUserId()),
+                productService.validateProduct(commentRequest.getProductId())).isPresent()){
+            throw new RestException("Already rated this product");
+        }
     }
 
     @Override

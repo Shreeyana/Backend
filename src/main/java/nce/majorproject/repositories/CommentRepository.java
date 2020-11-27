@@ -2,6 +2,7 @@ package nce.majorproject.repositories;
 
 import nce.majorproject.entities.Comment;
 import nce.majorproject.entities.Product.Product;
+import nce.majorproject.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -37,4 +38,7 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     @Modifying
     @Query(value = "update Comment c set c.isDeleted=true where c.id=?1")
     int deleteComment(Long id);
+
+    @Query(value = "select c from Comment c where c.userId=?1 and c.productId=?2")
+    Optional<Comment> findByUserAndProduct(User user, Product product);
 }
