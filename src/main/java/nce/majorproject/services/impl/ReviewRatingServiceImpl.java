@@ -52,10 +52,18 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
     @Override
     public IdResponse addReview(AddReviewRatingRequest reviewRequest) {
         ReviewRating review=prepareToAddReview(reviewRequest);
+        if(!userHasAlreadyRatedProduct(review)){
+
         ReviewRating response=reviewRatingRepository.save(review);
         Thread thread = new Thread(() -> addDataToDataset(response));
         thread.start();
         return IdResponse.builder().id(response.getId()).build();
+        }else{
+            throw new RestException("Rating has already been done");
+        }
+    }
+    private boolean userHasAlreadyRatedProduct(ReviewRating review){
+       return reviewRatingRepository.findByUserAndProduct(review.getReviewDoneBy(),review.getReviewDoneOn()).isPresent();
     }
     private void addDataToDataset(ReviewRating reviewRating){
         DataSetReferer dataSetReferer = new DataSetReferer();
