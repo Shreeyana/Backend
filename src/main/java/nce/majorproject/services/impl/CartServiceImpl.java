@@ -14,6 +14,7 @@ import nce.majorproject.util.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,8 +74,8 @@ public class CartServiceImpl implements CartService {
         Product product=productService.validateProduct(cart.getProduct_id());
 
         User user=userService.validateUser(contextHolderServices.getContext().getId());
-        response.setAddedDate(cart.getAddedDate());
-        response.setModifiedDate(cart.getAddedDate());
+        response.setAddedDate(LocalDateTime.now());
+        response.setModifiedDate(LocalDateTime.now());
         response.setCheckout(false);
         response.setRemoved(false);
         response.setQuantity(cart.getQuantity());

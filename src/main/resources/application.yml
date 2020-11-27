@@ -17,7 +17,7 @@ knn:
   output:
     total: 10
     random:
-      ration: 0.8
+      ration: 0.1
 
   input:
     k: 3

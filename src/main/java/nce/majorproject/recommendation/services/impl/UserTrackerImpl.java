@@ -96,49 +96,49 @@ public class UserTrackerImpl implements UserTracker {
       UserProductData userProductData = saveUserMapping(user,request);
         Thread thread = new Thread(() -> startRecommender(userProductData));
         thread.start();
-        if(hasUserRatedProductsBeforeEqualToThreshold(user)){
+//        if(hasUserRatedProductsBeforeEqualToThreshold(user)){
             //collaborative filtering plus content plus random
             //TODO
-            NextItemInferred no= collabAlgo(user);
-        }else{
-            //if not reach threshold for recommender=3
-           return  randomAlgorithm();
-        }
+           return  collabAlgo(user);
+//        }else{
+//            //if not reach threshold for recommender=3
+//           return  randomAlgorithm();
+//        }
        //todo logic recommendation knn for collab and content
-        if(user.getGender().equalsIgnoreCase("FEMALE")){//we have only data set of female user
-            long age = DateUtil.getAge(user.getDob());
-            long lower = (age/10);
-            long upper = lower +1;
-            List<DataSetReferer> groupedByAgeList = this.dataSetRefererRepository.findByAgeInterval(lower,upper);
-            List<SubSubCategory> subSubCategoryList = subCategoryService.listSubSubCategory();
-           long[]  countArray=new long[subSubCategoryList.size()];
-            groupedByAgeList.forEach(data->{
-                int count =0;
-               for(SubSubCategory subSubCategory:subSubCategoryList) {
-                   if(data.getSubSubCategory().equalsIgnoreCase(subSubCategory.getName())){
-                       countArray[count]++;
-                   }
-                   count++;
-               }
-            });
-
-            List<SubCategoryAndCountRecommender> recommenderSUBSUBCOUNT = new ArrayList<>();
-            for(int i = 0 ;  i< subSubCategoryList.size();i++){
-                SubCategoryAndCountRecommender subCategoryAndCountRecommender = new SubCategoryAndCountRecommender(subSubCategoryList.get(i) ,countArray[i]);
-                recommenderSUBSUBCOUNT.add(subCategoryAndCountRecommender);
-            }
-            List<SubCategoryAndCountRecommender> sortedList =recommenderSUBSUBCOUNT
-                    .stream()
-                    .sorted(Comparator
-                            .comparingLong(SubCategoryAndCountRecommender::getCount)
-                            .reversed())
-                    .collect(Collectors.toList());
-
-           return createRecommendationMapper(sortedList,userProductData);
-
-
-        }
-        return  NextItemInferred.builder().recommendedItemsList(productService.showLatestAdded()).build();
+//        if(user.getGender().equalsIgnoreCase("FEMALE")){//we have only data set of female user
+//            long age = DateUtil.getAge(user.getDob());
+//            long lower = (age/10);
+//            long upper = lower +1;
+//            List<DataSetReferer> groupedByAgeList = this.dataSetRefererRepository.findByAgeInterval(lower,upper);
+//            List<SubSubCategory> subSubCategoryList = subCategoryService.listSubSubCategory();
+//           long[]  countArray=new long[subSubCategoryList.size()];
+//            groupedByAgeList.forEach(data->{
+//                int count =0;
+//               for(SubSubCategory subSubCategory:subSubCategoryList) {
+//                   if(data.getSubSubCategory().equalsIgnoreCase(subSubCategory.getName())){
+//                       countArray[count]++;
+//                   }
+//                   count++;
+//               }
+//            });
+//
+//            List<SubCategoryAndCountRecommender> recommenderSUBSUBCOUNT = new ArrayList<>();
+//            for(int i = 0 ;  i< subSubCategoryList.size();i++){
+//                SubCategoryAndCountRecommender subCategoryAndCountRecommender = new SubCategoryAndCountRecommender(subSubCategoryList.get(i) ,countArray[i]);
+//                recommenderSUBSUBCOUNT.add(subCategoryAndCountRecommender);
+//            }
+//            List<SubCategoryAndCountRecommender> sortedList =recommenderSUBSUBCOUNT
+//                    .stream()
+//                    .sorted(Comparator
+//                            .comparingLong(SubCategoryAndCountRecommender::getCount)
+//                            .reversed())
+//                    .collect(Collectors.toList());
+//
+//           return createRecommendationMapper(sortedList,userProductData);
+//
+//
+//        }
+        //return  NextItemInferred.builder().recommendedItemsList(productService.showLatestAdded()).build();
     }
     private NextItemInferred collabAlgo(User user){
 
@@ -156,9 +156,9 @@ public class UserTrackerImpl implements UserTracker {
                 count = count +1;
             }
         }
-        if(count<=0){
-            return  productService.randomProduct();//TODO pagination
-        }
+//        if(count<=0){
+//            return  productService.randomProduct();//TODO pagination
+//        }
         float noOfItemUsingKNN=valuesToBeRecommendedUsingKNN(totalRequiredOutput,randomValueRation);
         float noOfRandomData = valuesToBeRecommendedRandom(noOfItemUsingKNN,totalRequiredOutput);
         //TODO random data and kNN data merge;
@@ -175,10 +175,10 @@ public class UserTrackerImpl implements UserTracker {
         User user1 = userRepository.validateUserById(user).get();
         long age = DateUtil.getAge(user1.getDob());
         System.out.println(age);
-        int upper = (int)((age+5)/10 )*10;
-        int lower = (int)((age-5)/10)*10;
+        long lower = (age/10);
+       long upper = lower +1;
         System.out.println(upper +"  " + lower);
-        List<DataSetReferer> trainingSet = dataSetRefererRepository.findByAgeInterval((long)lower,(long)upper);
+        List<DataSetReferer> trainingSet = dataSetRefererRepository.findByAgeInterval((long)lower*10,(long)upper*10);
         List<DataSetReferer> userBrowseData=prepareUserDataSetReferer(userRepository.validateUserById(user).get());
         List<Long> dataSetIndex = new ArrayList<>();
         for(int i =0 ; i<userBrowseData.size();i++){
@@ -194,25 +194,32 @@ public class UserTrackerImpl implements UserTracker {
             });
         }
         List<List<LatestAddedProductResponse>> recommenderList = new ArrayList<>();
+        Map<String,Integer> m = new HashMap();
+        int count =1;
+        int subcategorycount=0;
         for(int listIterator = 0 ; listIterator<dataSetIndex.size();listIterator++){
 
             //TODO: Product matcher as in database if present also in case of suffice data compare collab filtering in user db
             DataSetReferer dataList=dataSetRefererRepository.findById(dataSetIndex.get(listIterator)).get();
-
+            if(!m.containsKey(dataList.getSubSubCategory())){
+                m.put(dataList.getSubSubCategory(),count);
+                count++;
             if(subCategoryService.validateSubSUbCategoryByName(dataList.getSubSubCategory())) {
                 List<Product> productList = productRepository.findProductBySubSubcategory(dataList.getSubSubCategory());
                 List<LatestAddedProductResponse> productListFormat = prepareListRecommender(productList);
                 recommenderList.add(productListFormat);
+                subcategorycount++;
             }
-            if(listIterator<=valueForK){
+            }
+            if(listIterator>=valueForK){
                 break;
             }
         }
-        return  prepareRecommendedListOnly(noOfItemUsingKNn,recommenderList);
+        return  prepareRecommendedListOnly(noOfItemUsingKNn,recommenderList,subcategorycount);
 
     }
     private List<LatestAddedProductResponse> prepareRecommendedListOnly(float noOfItemUsingKNN
-            , List<List<LatestAddedProductResponse>> recommenderList){
+            , List<List<LatestAddedProductResponse>> recommenderList,int subcategoryCount){
         List<LatestAddedProductResponse> ls = new ArrayList<>();
         if (recommenderList.size()<1) {
         return  randomAlgorithm().getRecommendedItemsList();
@@ -222,8 +229,14 @@ public class UserTrackerImpl implements UserTracker {
         int count=0;
         for(int i =0; i<recommenderList.size();i++){
             for(int j =0 ; j<recommenderList.get(i).size();j++){
-                if(j<1){
-                    ls.add(recommenderList.get(i).get(j));
+                if(subcategoryCount<3){
+                    if(j<(recommenderList.get(i).size()/2)){
+                        ls.add(recommenderList.get(i).get(j));
+                    }
+                }else{
+                    if(ls.size()<noOfItemUsingKNN){
+                        ls.add(recommenderList.get(i).get(j));
+                    }
                 }
             }
         }

@@ -15,14 +15,18 @@ public class CosineHelper {
         Map<Long,Double> map = new HashMap<>();
 
         for(int dataBrowser = 0; dataBrowser < data.size(); dataBrowser++){
-            dotProduct +=  (Integer.valueOf(userData.get(rowIndex).getRating())) * Integer.valueOf(data.get(dataBrowser).getRating());
-            firstNorm += Math.pow(Integer.valueOf(userData.get(rowIndex).getRating()),2);
-            secondNorm +=  Math.pow(Integer.valueOf(data.get(dataBrowser).getRating()), 2);
+            if(!(data.get(dataBrowser).getRating()).equals("0.0")){
+                if(data.get(dataBrowser).getSubSubCategory().equalsIgnoreCase(userData.get(rowIndex).getSubSubCategory())){
+                    dotProduct +=  (Integer.valueOf(userData.get(rowIndex).getRating())) * Integer.valueOf(data.get(dataBrowser).getRating());
+                    firstNorm += Math.pow(Integer.valueOf(userData.get(rowIndex).getRating()),2);
+                    secondNorm +=  Math.pow(Integer.valueOf(data.get(dataBrowser).getRating()), 2);
             // Matrix f = D.getMatrix(dataBrowser, userBrowser);
 
-            cosinSimilarity = (dotProduct / (Math.sqrt(firstNorm) * Math.sqrt(secondNorm)));
-//            similarRows.add(data.get(dataBrowser).getSn(), cosinSimilarity);
-            map.put(data.get(dataBrowser).getSn(),cosinSimilarity);
+                cosinSimilarity = (dotProduct / (Math.sqrt(firstNorm) * Math.sqrt(secondNorm)));
+    //            similarRows.add(data.get(dataBrowser).getSn(), cosinSimilarity);
+                map.put(data.get(dataBrowser).getId(),cosinSimilarity);
+            }
+            }
         }
         return map;
     }
