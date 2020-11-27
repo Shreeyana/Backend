@@ -165,7 +165,7 @@ public class CommentServiceImpl implements CommentService {
             log.info("No rating found");
         }
         if(reviewRating!=null){
-        return  reviewRating.getRating();
+        return  (float)reviewRating.getRating();
         }
         return 0;
     }

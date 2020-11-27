@@ -18,4 +18,10 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query(value="select p from Product p where p.id=?1")
     Optional<Product> validateProductById(Long id);
 
+    @Query(value = "select p from Product p order by p.addedDate desc")
+    List<Product> randomProduct();
+
+    @Query(value = "select p from Product p where LOWER(p.subSubCategory.name)=LOWER(:subSubCategory)")
+    List<Product>findProductBySubSubcategory(String subSubCategory);
+
 }

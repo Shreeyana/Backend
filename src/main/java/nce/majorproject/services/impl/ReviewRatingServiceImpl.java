@@ -10,10 +10,13 @@ import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.ReviewRating;
 import nce.majorproject.entities.User;
 import nce.majorproject.exception.RestException;
+import nce.majorproject.recommendation.entity.DataSetReferer;
+import nce.majorproject.recommendation.repository.DataSetRefererRepository;
 import nce.majorproject.repositories.ReviewRatingRepository;
 import nce.majorproject.services.ProductService;
 import nce.majorproject.services.ReviewRatingService;
 import nce.majorproject.services.UserService;
+import nce.majorproject.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,20 +34,36 @@ public class ReviewRatingServiceImpl implements ReviewRatingService {
     private ContextHolderServices contextHolderServices;
     private UserService userService;
     private ProductService productService;
+    private DataSetRefererRepository dataSetRefererRepository;
 
     @Autowired
-    public ReviewRatingServiceImpl(ReviewRatingRepository reviewRatingRepository, ContextHolderServices contextHolderServices, UserService userService, ProductService productService) {
+    public ReviewRatingServiceImpl(ReviewRatingRepository reviewRatingRepository,
+                                   ContextHolderServices contextHolderServices,
+                                   UserService userService,
+                                   ProductService productService,
+                                   DataSetRefererRepository dataSetRefererRepository) {
         this.reviewRatingRepository = reviewRatingRepository;
         this.contextHolderServices = contextHolderServices;
         this.userService = userService;
         this.productService = productService;
+        this.dataSetRefererRepository = dataSetRefererRepository;
     }
 
     @Override
     public IdResponse addReview(AddReviewRatingRequest reviewRequest) {
         ReviewRating review=prepareToAddReview(reviewRequest);
         ReviewRating response=reviewRatingRepository.save(review);
+        Thread thread = new Thread(() -> addDataToDataset(response));
+        thread.start();
         return IdResponse.builder().id(response.getId()).build();
+    }
+    private void addDataToDataset(ReviewRating reviewRating){
+        DataSetReferer dataSetReferer = new DataSetReferer();
+        dataSetReferer.setSubSubCategory(reviewRating.getReviewDoneOn().getSubSubCategory().getName());
+        dataSetReferer.setClothingId("WARDROBE"+reviewRating.getId());
+        dataSetReferer.setAge(DateUtil.getAge(reviewRating.getReviewDoneBy().getDob()));
+        dataSetReferer.setRating(String.valueOf(reviewRating.getRating()));
+        this.dataSetRefererRepository.save(dataSetReferer);
     }
 
     @Override

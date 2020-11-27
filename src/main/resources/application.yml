@@ -10,3 +10,14 @@ spring:
       ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+
+knn:
+  threshold: 3
+
+  output:
+    total: 10
+    random:
+      ration: 0.1
+
+  input:
+    k: 3

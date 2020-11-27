@@ -4,6 +4,7 @@ import lombok.Getter;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.ReviewRating;
 import nce.majorproject.entities.User;
+import nce.majorproject.recommendation.entity.DataSetReferer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -25,4 +26,10 @@ public interface ReviewRatingRepository extends JpaRepository<ReviewRating,Long>
 
     @Query(value = "select count(r.id) from ReviewRating r where r.reviewDoneOn=?1")
     int countTotalReviews(Product product);
+
+    @Query(value = "select count(r.id) from ReviewRating r where r.reviewDoneBy=?1")
+    int findNoOfRatingMadeByUser(User user);
+
+    @Query(value = "select r from ReviewRating  r where r.reviewDoneBy=?1")
+    List<ReviewRating> findByUserRatedProduct(User user);
 }

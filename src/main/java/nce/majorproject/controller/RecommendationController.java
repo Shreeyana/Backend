@@ -3,6 +3,7 @@ package nce.majorproject.controller;
 import lombok.extern.slf4j.Slf4j;
 import nce.majorproject.constant.Route;
 import nce.majorproject.context.ContextHolderServices;
+import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.User;
 import nce.majorproject.recommendation.dto.CurrentSelection;
@@ -65,6 +66,10 @@ public class RecommendationController {
     public void setRecommendationTable(CurrentSelection currentSelection){
         User user = userService.validateUser(contextHolderServices.getContext().getId());
         mapNewRecommendation(user,currentSelection);
+    }
+    @GetMapping(value = "/hiter")
+    public List<LatestAddedProductResponse> hitter(){
+        return userTracker.hitter();
     }
     private void mapNewRecommendation(User user,CurrentSelection currentSelection){
 
