@@ -92,7 +92,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Response removeAllFromCart(CartRemove removeAllCartData) {
+    public Response removeAllFromCart() {
      User user = userService.validateUser(contextHolderServices.getContext().getId());
      cartRepository.removeAllFromCartDB(user);
      return Response.builder().status("SUCCESS").build();

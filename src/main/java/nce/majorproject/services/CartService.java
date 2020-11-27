@@ -17,7 +17,7 @@ public interface CartService {
 
     Response removeFromCart(CartRemove removeInCart);
 
-    Response removeAllFromCart(CartRemove removeAllFromCart);
+    Response removeAllFromCart();
 
     List<ShowInCartById> findPopularProducts();
 

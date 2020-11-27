@@ -40,10 +40,10 @@ public class CartController {
 
         return cartService.addToCart(addInCart);
     }
-    @PostMapping(value="/remove-all")
-    public Response removeAllFromCart(@RequestBody CartRemove cartRemove){
+    @GetMapping(value="/remove-all")
+    public Response removeAllFromCart(){
 
-        return cartService.removeAllFromCart(cartRemove);
+        return cartService.removeAllFromCart();
     }
 
     @GetMapping("/checkout-all")
