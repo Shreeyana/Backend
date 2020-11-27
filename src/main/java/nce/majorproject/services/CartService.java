@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface CartService {
 
-    List<ShowInCartById> showCart(CartRequest userId);
+    List<ShowInCartById> showCart();
 
     Response addToCart(CartAdd addInCart);
 

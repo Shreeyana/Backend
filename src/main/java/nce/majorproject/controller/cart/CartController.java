@@ -25,10 +25,10 @@ public class CartController {
         this.cartRepository=cartRepository;
         this.cartService=cartService;
     }
-    @PostMapping(value="/show")
-    public List<ShowInCartById> showCart(@Valid @RequestBody CartRequest reqUserId){
+    @GetMapping(value="/show")
+    public List<ShowInCartById> showCart(){
 
-        return cartService.showCart(reqUserId);
+        return cartService.showCart();
     }
     @PostMapping(value="/remove")
     public Response removeCart(@RequestBody CartRemove cartRemove){

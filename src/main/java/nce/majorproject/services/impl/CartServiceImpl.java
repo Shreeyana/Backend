@@ -35,7 +35,7 @@ public class CartServiceImpl implements CartService {
         this.contextHolderServices = contextHolderServices;
     }
     @Override
-    public List<ShowInCartById> showCart(CartRequest cartShow) {
+    public List<ShowInCartById> showCart() {
         User user=userService.validateUser(contextHolderServices.getContext().getId());//validation
         List<Cart> getCart=cartRepository.findCartById(user);
 
