@@ -16,4 +16,5 @@ public interface ProductService {
     Product validateProduct(Long id);
     List<LatestAddedProductResponse> randomProduct();
     LatestAddedProductResponse getProductById(Long id);
+    List<LatestAddedProductResponse> filter(String category,String subcategory);
 }

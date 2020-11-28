@@ -92,6 +92,22 @@ public class ProductServiceImpl  implements ProductService {
         return prepareToShowLatestAddedProduct(product);
     }
 
+    @Override
+    public List<LatestAddedProductResponse> filter(String category, String subcategory) {
+        List<LatestAddedProductResponse> filterList = new ArrayList<>();
+        List<Product> filteredProducts = new ArrayList<>();
+        if(subcategory!=null) {
+           filteredProducts = this.productRepository.filter(category, subcategory);
+        }else{
+            filteredProducts = this.productRepository.filter(category);
+        }
+        filteredProducts.forEach((product)->{
+            LatestAddedProductResponse filteredData = prepareToShowLatestAddedProduct(product);
+            filterList.add(filteredData);
+        });
+       return filterList;
+    }
+
     private LatestAddedProductResponse prepareToShowLatestAddedProduct(Product product) {
         LatestAddedProductResponse response = new LatestAddedProductResponse();
         response.setId(product.getId());

@@ -12,6 +12,7 @@ import nce.majorproject.services.ProductService;
 import nce.majorproject.services.SubCategoryService;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -77,5 +78,9 @@ public class ProductController {
     public LatestAddedProductResponse getProductById(@RequestParam Long id){
         log.info("get product by id::",id);
         return productService.getProductById(id);
+    }
+    @GetMapping(value = "/filter")
+    public List<LatestAddedProductResponse> filter(@RequestParam String category,@Nullable @RequestParam String subcategory  ){
+        return  productService.filter(category,subcategory);
     }
 }
