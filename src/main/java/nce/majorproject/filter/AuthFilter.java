@@ -79,7 +79,7 @@ private ContextHolderServices contextHolderServices;
         final String TOPPRODUCT = "/v1/api/product/top-5";
 
         List<String> byPassUrl = Arrays.asList(ADMIN_REGISTER_URL,
-                ADMIN_LOGIN_URL,USER_REGISTER_URL,USER_LOGIN_URL,PRODUCT,RECOMMENDATION,PRODUCTID,HITTER,FILTER);
+                ADMIN_LOGIN_URL,USER_REGISTER_URL,USER_LOGIN_URL,PRODUCT,RECOMMENDATION,PRODUCTID,HITTER,FILTER,TOPPRODUCT);
 
         return byPassUrl.stream().anyMatch(url::equalsIgnoreCase);
     }

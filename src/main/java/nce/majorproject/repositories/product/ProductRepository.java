@@ -25,13 +25,13 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
     @Query(value = "select p from Product p where LOWER(p.subSubCategory.name)=LOWER(:subSubCategory)")
     List<Product>findProductBySubSubcategory(String subSubCategory);
 
-    @Query(value = "select p from Product p where LOWER(p.category.name)=LOWER(:category) AND LOWER(p.subCategory.name)=LOWER(:subcCategory)")
+    @Query(value = "select p from Product p where LOWER(p.category.name)=LOWER(:category) AND LOWER(p.subCategory.name)=LOWER(:subCategory)")
     List<Product>filter(String category, String subCategory);
 
     @Query(value = "select p from Product p where LOWER(p.category.name)=LOWER(:category)")
-    List<Product>filter(String category);
+    List<Product>filterCat(String category);
 
-    @Query(value = "select p from Product  p where order by p.addedDate desc")
+    @Query(value = "select  p from Product  p  order by p.addedDate desc")
     List<Product> getTopFive(Pageable pageable);
 
 }

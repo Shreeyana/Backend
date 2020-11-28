@@ -1,6 +1,7 @@
 package nce.majorproject.services.impl;
 
 import nce.majorproject.context.ContextHolderServices;
+import nce.majorproject.dto.FilterProduct;
 import nce.majorproject.dto.Response;
 import nce.majorproject.dto.product.AddRequest;
 import nce.majorproject.dto.product.LatestAddedProductResponse;
@@ -95,13 +96,13 @@ public class ProductServiceImpl  implements ProductService {
     }
 
     @Override
-    public List<LatestAddedProductResponse> filter(String category, String subcategory) {
+    public List<LatestAddedProductResponse> filter(FilterProduct filter) {
         List<LatestAddedProductResponse> filterList = new ArrayList<>();
         List<Product> filteredProducts = new ArrayList<>();
-        if(subcategory!=null) {
-           filteredProducts = this.productRepository.filter(category, subcategory);
+        if(filter.getSubCategory()!=null) {
+           filteredProducts = this.productRepository.filter(filter.getCategory(),filter.getSubCategory());
         }else{
-            filteredProducts = this.productRepository.filter(category);
+            filteredProducts = this.productRepository.filterCat(filter.getCategory());
         }
         filteredProducts.forEach((product)->{
             LatestAddedProductResponse filteredData = prepareToShowLatestAddedProduct(product);

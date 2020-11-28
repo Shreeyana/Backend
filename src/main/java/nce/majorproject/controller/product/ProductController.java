@@ -2,6 +2,7 @@ package nce.majorproject.controller.product;
 
 import lombok.extern.slf4j.Slf4j;
 import nce.majorproject.constant.Route;
+import nce.majorproject.dto.FilterProduct;
 import nce.majorproject.dto.Response;
 import nce.majorproject.dto.product.*;
 import nce.majorproject.entities.Product.Category;
@@ -12,7 +13,6 @@ import nce.majorproject.services.ProductService;
 import nce.majorproject.services.SubCategoryService;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -79,9 +79,9 @@ public class ProductController {
         log.info("get product by id::",id);
         return productService.getProductById(id);
     }
-    @GetMapping(value = "/filter")
-    public List<LatestAddedProductResponse> filter(@RequestParam String category,@Nullable @RequestParam String subcategory  ){
-        return  productService.filter(category,subcategory);
+    @PostMapping(value = "/filter")
+    public List<LatestAddedProductResponse> filter(@Valid@RequestBody FilterProduct filterProduct){
+        return  productService.filter(filterProduct);
     }
 
     @GetMapping(value = "/top-5" )
