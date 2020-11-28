@@ -17,4 +17,5 @@ public interface ProductService {
     List<LatestAddedProductResponse> randomProduct();
     LatestAddedProductResponse getProductById(Long id);
     List<LatestAddedProductResponse> filter(String category,String subcategory);
+    List<LatestAddedProductResponse> getTopFive();
 }

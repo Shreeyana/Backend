@@ -14,8 +14,10 @@ import nce.majorproject.repositories.product.ProductRepository;
 import nce.majorproject.repositories.product.SubCategoryRepository;
 import nce.majorproject.services.*;
 import nce.majorproject.util.ImageUtil;
+import nce.majorproject.util.PaginationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -106,6 +108,18 @@ public class ProductServiceImpl  implements ProductService {
             filterList.add(filteredData);
         });
        return filterList;
+    }
+
+    @Override
+    public List<LatestAddedProductResponse> getTopFive() {
+        Pageable pageable = PaginationUtil.performPagination(1,5);
+        List<Product> filteredProducts = this.productRepository.getTopFive(pageable);
+        List<LatestAddedProductResponse> filterList = new ArrayList<>();
+        filteredProducts.forEach((product)->{
+            LatestAddedProductResponse filteredData = prepareToShowLatestAddedProduct(product);
+            filterList.add(filteredData);
+        });
+        return filterList;
     }
 
     private LatestAddedProductResponse prepareToShowLatestAddedProduct(Product product) {

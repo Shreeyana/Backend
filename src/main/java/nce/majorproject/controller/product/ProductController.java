@@ -83,4 +83,9 @@ public class ProductController {
     public List<LatestAddedProductResponse> filter(@RequestParam String category,@Nullable @RequestParam String subcategory  ){
         return  productService.filter(category,subcategory);
     }
+
+    @GetMapping(value = "/top-5" )
+    public List<LatestAddedProductResponse> topFiveProduct(){
+        return  productService.getTopFive();
+    }
 }

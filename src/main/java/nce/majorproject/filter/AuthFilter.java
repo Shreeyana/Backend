@@ -75,9 +75,11 @@ private ContextHolderServices contextHolderServices;
         final String RECOMMENDATION = "/v1/api/recommendation/all";
         final String PRODUCTID = "/v1/api/product/get-product-by-id";
         final String HITTER = "/v1/api/recommendation/hiter";
+        final String FILTER = "/v1/api/product/filter";
+        final String TOPPRODUCT = "/v1/api/product/top-5";
 
         List<String> byPassUrl = Arrays.asList(ADMIN_REGISTER_URL,
-                ADMIN_LOGIN_URL,USER_REGISTER_URL,USER_LOGIN_URL,PRODUCT,RECOMMENDATION,PRODUCTID,HITTER);
+                ADMIN_LOGIN_URL,USER_REGISTER_URL,USER_LOGIN_URL,PRODUCT,RECOMMENDATION,PRODUCTID,HITTER,FILTER);
 
         return byPassUrl.stream().anyMatch(url::equalsIgnoreCase);
     }
