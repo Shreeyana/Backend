@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Login } from '../Actions/UserActions';
 import Loader from '../Components/Loader';
 import Message from '../Components/Message';
+import {Test} from '../Actions/Test'
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -27,7 +28,7 @@ const LoginScreen = ({ history, location }) => {
 	const [ userName, setUserName ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const classes = useStyles();
-
+	const test = useStyles();
 	const redirect = location.search ? location.search.split('=')[1] : '/';
 
 	const dispatch = useDispatch();
@@ -48,6 +49,10 @@ const LoginScreen = ({ history, location }) => {
 		e.preventDefault();
 		dispatch(Login(userName, password));
 	};
+	// const testSubmitHandler = (e) =>{
+	// 	e.preventDefault();
+	// 	dispatch(Test());
+	// }
 	return (
 		<div style={{ marginTop: 100 }}>
 			<h1 style={{ textAlign: 'center' }}>Sign In</h1>
@@ -86,6 +91,7 @@ const LoginScreen = ({ history, location }) => {
 						<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
 							Sign In
 						</Button>
+						
 						<Grid container>
 							<Grid item>
 								<Link
@@ -98,6 +104,9 @@ const LoginScreen = ({ history, location }) => {
 							</Grid>
 						</Grid>
 					</form>
+					{/* <form className={classes.form} onSubmit={testSubmitHandler}>
+					<Button type='submit' className={test.submit}>API Test</Button>
+					</form> */}
 				</div>
 			</Container>
 		</div>

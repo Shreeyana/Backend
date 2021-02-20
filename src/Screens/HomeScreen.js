@@ -45,7 +45,7 @@ const HomeScreen = ({history}) => {
 
 	const indexOfLastProduct = currentPage * productsPerPage;
 	const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-	const currentProducts = products.slice(indexOfFirstProduct,indexOfLastProduct);
+	const currentProducts = products?.slice(indexOfFirstProduct,indexOfLastProduct);
 
 	const paginate = (pageNumber) => {
 		setCurrentPage(pageNumber);

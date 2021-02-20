@@ -22,7 +22,7 @@ export const getRecommendations = (productId, localDateTime, selectionParam) => 
 			{ productId, localDateTime, selectionParam },
 			config
 		);
-
+		console.log(data)
 		dispatch({ type: RECOMMENDATION_SUCCESS, payload: data });
 	} catch (error) {
 		dispatch({

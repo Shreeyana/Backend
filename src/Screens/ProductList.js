@@ -72,7 +72,7 @@ const ProductList = () => {
                                 <h3>Price</h3>
                             </Grid>
                             <Grid item md={1} style={{ textAlign: 'left' }}>
-                                <h3>Stock</h3>
+                                <h3>Quantity</h3>
                             </Grid>
                             <Grid item md={2} style={{ textAlign: 'left' }}>
                                 <h3>Category</h3>

@@ -1,9 +1,10 @@
 import { Button, Grid, List, ListItem, TextField } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch,useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { PayPalButton } from 'react-paypal-button-v2';
 import Message from '../Components/Message';
+import {CheckoutFromCart} from '../Actions/GetCartItemsAction';
 
 const PlaceOrder = () => {
 	const [ sdkReady, setSdkReady ] = useState(false);
@@ -19,6 +20,7 @@ const PlaceOrder = () => {
 
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		const addPaypalScript = () => {
@@ -35,10 +37,16 @@ const PlaceOrder = () => {
 		addPaypalScript();
 	}, []);
 
+
 	const successPaymentHandler = (paymentResult) => {
+		console.log(paymentResult)
 		if (paymentResult) {
+			console.log("hello")
+			dispatch(CheckoutFromCart());
 			setPaid(true);
+			
 		}
+		
 	};
 	console.log(sdkReady);
 

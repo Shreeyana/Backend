@@ -11,6 +11,7 @@ import './Slider.css';
 const CartScreen = ({ match, location, history }) => {
 	const [ localDateTime] = useState("2020-11-17 00:00:00");
 	const [ view] = useState('VIEW');
+	const [cart] = useState('CART');
 	const [ userid ] = useState('1');
 	const [ refetch, setRefetch ] = useState(false);
 
@@ -30,15 +31,17 @@ const CartScreen = ({ match, location, history }) => {
 	
 	useEffect(
 		() => {
-
-			dispatch(GetCartItemsAction());
-			if (productId) {
-				dispatch(getRecommendations(productId, localDateTime, view));					
-			}
-			
+			dispatch(GetCartItemsAction());	
 		},
 		[ dispatch, productId,localDateTime,view,refetch]
 	);
+	useEffect(
+		() => {
+		if (productId) 
+		{
+			dispatch(getRecommendations(productId, localDateTime, cart));					
+		}
+	}, [ dispatch, productId,localDateTime,view])
 
 	const checkoutHandler = () => {
 		console.log('checkout');

@@ -4,6 +4,9 @@ import {
 	GET_CART_ITEMS_REQUEST,
 	GET_CART_ITEMS_SUCCESS,
 	REMOVE_ITEM_FROM_CART,
+	CHECKOUT_FROM_LIST,
+	CHECKOUT_REQUEST,
+	CLEAR_CART_REQUEST
 } from '../Constants/GetCartItemsConstant';
 
 export const GetCartItemsReducer = (state = { cartItems: [] }, action) => {
@@ -39,7 +42,28 @@ export const RemoveItemFromCartReducer = (state = {}, action) => {
 
 export const ClearCartReducer = (state = {}, action) => {
 	switch (action.type) {
+		case CLEAR_CART_REQUEST:
+			return {
+				...state,
+				loading:true
+			};
 		case CLEAR_CART:
+			return {
+				...state,
+				status: action.payload,
+			};
+		default:
+			return state;
+	}
+};
+export const CheckoutFromCartReducer = (state = {}, action) => {
+	switch (action.type) {
+		case CHECKOUT_REQUEST:
+			return{
+				...state,
+				loading:true
+			};
+		case CHECKOUT_FROM_LIST:
 			return {
 				...state,
 				status: action.payload,

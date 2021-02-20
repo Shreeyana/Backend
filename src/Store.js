@@ -1,4 +1,4 @@
-import { AdminLoginReducer, userListReducer } from './Reducers/AdminReducers';
+import { AdminLoginReducer, AdminStatReducer, userListReducer } from './Reducers/AdminReducers';
 import { ProductDetailsReducer, ProductListReducer } from './Reducers/ProductReducers';
 import { UserDetailsReducer, UserLoginReducer, UserRegisterReducer } from './Reducers/UserReducers';
 import { AddProductReducer } from './Reducers/AddProductReducer';
@@ -7,7 +7,7 @@ import { AddCommentReducer } from './Reducers/AddCommentReducer';
 import { GetReviewReducer } from './Reducers/GetReviewReducer';
 import { GetRecommendationReducer } from './Reducers/RecommendationReducer';
 import { AddToCartReducer } from './Reducers/AddToCartReducer';
-import { ClearCartReducer, GetCartItemsReducer, RemoveItemFromCartReducer } from './Reducers/GetCartItemsReducer';
+import { ClearCartReducer, GetCartItemsReducer, RemoveItemFromCartReducer,CheckoutFromCartReducer } from './Reducers/GetCartItemsReducer';
 import { TopFiveReducer } from './Reducers/TopFiveReducer';
 import { CategoryReducer } from './Reducers/CategoryReducer';
 
@@ -34,6 +34,8 @@ const reducer = combineReducers({
 	clearCart: ClearCartReducer,
 	topFive: TopFiveReducer,
 	getCategory: CategoryReducer,
+	getNewCart:CheckoutFromCartReducer,
+	adminStat:AdminStatReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;

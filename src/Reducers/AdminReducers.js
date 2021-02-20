@@ -6,6 +6,9 @@ import {
 	USER_LIST_FAIL,
 	USER_LIST_REQUEST,
 	USER_LIST_SUCCESS,
+	ADMIN_STAT_SUCCESS,
+	ADMIN_STAT_FAIL,
+	ADMIN_STAT_REQUEST,
 } from '../Constants/AdminConstants';
 
 export const AdminLoginReducer = (state = {}, action) => {
@@ -28,7 +31,27 @@ export const AdminLoginReducer = (state = {}, action) => {
 			return state;
 	}
 };
-
+export const AdminStatReducer = (state = {adminStats:{}},action)=>{
+	switch (action.type) {
+		case ADMIN_STAT_REQUEST:
+			return{
+				loading:true,
+				adminStats:{}
+			}
+		case ADMIN_STAT_SUCCESS:
+			return {
+				loading: false,
+				adminStats: action.payload,
+			};
+		case ADMIN_STAT_FAIL:
+			return {
+				loading: false,
+				error: action.payload,
+			};
+		default:
+			return state;
+	}
+};
 export const userListReducer = (state = { users: [] }, action) => {
 	switch (action.type) {
 		case USER_LIST_REQUEST:

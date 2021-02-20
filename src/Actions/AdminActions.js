@@ -4,6 +4,9 @@ import {
 	ADMIN_LOGIN_REQUEST,
 	ADMIN_LOGIN_SUCCESS,
 	ADMIN_LOGOUT,
+	ADMIN_STAT_FAIL,
+	ADMIN_STAT_REQUEST,
+	ADMIN_STAT_SUCCESS,
 	USER_LIST_FAIL,
 	USER_LIST_REQUEST,
 	USER_LIST_SUCCESS,
@@ -36,7 +39,35 @@ export const Admin = (userName, password) => async (dispatch) => {
 		});
 	}
 };
+export const getAdminStat = () => async(dispatch,getState)=>{
+		try {
+			dispatch({
+				type: ADMIN_STAT_REQUEST,
+			});
+	
+			const {adminLogin:{adminInfo}} = getState();
+			const config = {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${adminInfo.accessToken}`,
 
+				},
+			};
+	
+			const { data } = await Axios.get('/v1/api/admin/count-stat', config);
+	
+			dispatch({
+				type: ADMIN_STAT_SUCCESS,
+				payload: data,
+			});
+	
+		} catch (error) {
+			dispatch({
+				type: ADMIN_STAT_FAIL,
+				payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+			});
+		}
+	};
 export const adminLogout = () => (dispatch) => {
 	localStorage.removeItem('adminInfo');
 	localStorage.removeItem('cartItems');

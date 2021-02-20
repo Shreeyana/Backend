@@ -134,7 +134,7 @@ const ProductScreen = ({ history, match }) => {
 						<Grid item md={3} style={{ lineHeight: 1 }}>
 							<h2>{product.name}</h2>
 							<div style={{ width: '100%', border: '1px solid black' }} />
-							<h3>Stock: {product.quantity}</h3>
+							<h3>Quantity: {product.quantity}</h3>
 							<h3>Status: {product.quantity > 0 ? 'In Stock' : 'Out of Stock'}</h3>
 							<div style={{ width: '100%', border: '1px solid black' }} />
 							<h2 style={{ color: 'red' }}>Price: Rs.{product.price}</h2>

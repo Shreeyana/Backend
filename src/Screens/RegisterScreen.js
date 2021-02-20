@@ -50,9 +50,17 @@ const RegisterScreen = ({ history, location }) => {
 	//	[ history, userInfo, redirect ]
 	//);
 
-	const submitHandler = (e) => {
+	const submitHandler = async(e) => {
 		e.preventDefault();
-		dispatch(Register(fullName, address, dob, phone, gender, userName, password));
+try{
+	await dispatch(Register(fullName, address, dob, phone, gender, userName, password));
+}
+catch(err)
+{
+	
+}
+		
+		
 	};
 	return (
 		<div>
@@ -155,10 +163,11 @@ const RegisterScreen = ({ history, location }) => {
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
-
+					
 						<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
-							Register
+						Sign Up
 						</Button>
+
 						<Grid container>
 							<Grid item>
 								<Link

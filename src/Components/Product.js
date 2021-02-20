@@ -45,7 +45,7 @@ const Product = ({ product }) => {
 							margin: 'auto ',
 						}}
 					>
-						Stock: {product.quantity}
+						Quantity: {product.quantity}
 					</ParagraphStyle>
 					<ParagraphStyle
 						style={{
