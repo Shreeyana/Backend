@@ -30,4 +30,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
 
     @Query(value = "select user from User user where user.id NOT  in ?1")
     List<User>findOtherUsers(Long userId);
+
+    @Query(value = "select count(user) from User user where user.gender=:gender")
+    int findUserBasedOnGender(String gender);
 }

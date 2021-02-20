@@ -27,7 +27,7 @@ public class UserProductData {
     private Product productId;
 
     @Column(name = "selection_local_date_time")
-    private LocalDateTime selectionStamp;
+    private String selectionStamp;
 
     @Column(name = "selection_choice")
     private TypeOfInput selectionParam;

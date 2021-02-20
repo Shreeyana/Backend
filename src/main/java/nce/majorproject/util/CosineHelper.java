@@ -17,6 +17,8 @@ public class CosineHelper {
         for(int dataBrowser = 0; dataBrowser < data.size(); dataBrowser++){
             if(!(data.get(dataBrowser).getRating()).equals("0.0")){
                 if(data.get(dataBrowser).getSubSubCategory().equalsIgnoreCase(userData.get(rowIndex).getSubSubCategory())){
+                    System.out.println("elf"+userData.get(rowIndex).getRating());
+                    System.out.println("ight"+data.get(dataBrowser).getRating()+dataBrowser);
                     dotProduct +=  (Integer.valueOf(userData.get(rowIndex).getRating())) * Integer.valueOf(data.get(dataBrowser).getRating());
                     firstNorm += Math.pow(Integer.valueOf(userData.get(rowIndex).getRating()),2);
                     secondNorm +=  Math.pow(Integer.valueOf(data.get(dataBrowser).getRating()), 2);

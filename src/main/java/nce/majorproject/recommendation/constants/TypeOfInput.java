@@ -1,19 +1,19 @@
 package nce.majorproject.recommendation.constants;
 
 public enum TypeOfInput {
-    VIEW(0.15),
-    CART(0.35),
-    CHECKOUT(0.5);
-    private Double val;
-    public Double getVal() {
+    VIEW(1),
+    CART(3),
+    CHECKOUT(4);
+    private int val;
+    public int getVal() {
         return val;
     }
 
-    public void setVal(Double val) {
+    public void setVal(int val) {
         this.val = val;
     }
 
-    TypeOfInput(Double val) {
+    TypeOfInput(int val) {
         this.val = val;
     }
 }

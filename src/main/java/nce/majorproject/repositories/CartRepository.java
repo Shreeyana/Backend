@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -31,8 +32,8 @@ public interface CartRepository extends JpaRepository<Cart,Long>{
 
         @Modifying
         @Transactional
-        @Query(value = "update Cart set isCheckout=true where userId=:user and isRemoved=false")
-        void checkOutFromCart(User user);
+        @Query(value = "update Cart set isCheckout=true, modifiedDate=:nowDate where userId=:user and isRemoved=false")
+        void checkOutFromCart(User user,LocalDateTime nowDate);
 
         @Modifying
         @Transactional
@@ -41,4 +42,13 @@ public interface CartRepository extends JpaRepository<Cart,Long>{
 
         @Query(value = "select cart from Cart cart where cart.userId=:validUser and cart.isRemoved=false and cart.isCheckout=true")
         List<Cart> findCheckoutProduct(User validUser);
+
+        @Query(value = "select count(cart) from Cart cart where cart.isCheckout=true and cart.modifiedDate between :startDate and :nowDate")
+        Double findCheckedOutToday(LocalDateTime startDate,LocalDateTime nowDate);
+
+        @Query(value = "select sum(cart.productId.price) from Cart cart where cart.isCheckout=true and cart.modifiedDate between :startDate and :nowDate")
+        Double findTransactionToday(LocalDateTime startDate,LocalDateTime nowDate);
+
+//        @Query(value = "select cart from Cart cart where cart.isCheckout=false and cart.isRemoved=false")
+//        List<Cart> findCheckOutFromCart(User user, LocalDateTime nowDate);
 }

@@ -3,11 +3,13 @@ package nce.majorproject.services.impl;
 import nce.majorproject.context.ContextHolderServices;
 import nce.majorproject.dto.Response;
 import nce.majorproject.dto.cart.*;
-import nce.majorproject.dto.product.LatestAddedProductResponse;
 import nce.majorproject.entities.Cart;
 import nce.majorproject.entities.Product.Product;
 import nce.majorproject.entities.User;
 import nce.majorproject.exception.RestException;
+import nce.majorproject.recommendation.constants.TypeOfInput;
+import nce.majorproject.recommendation.dto.UserSelectionRequest;
+import nce.majorproject.recommendation.services.UserTracker;
 import nce.majorproject.repositories.CartRepository;
 import nce.majorproject.services.CartService;
 import nce.majorproject.util.ImageUtil;
@@ -24,15 +26,17 @@ public class CartServiceImpl implements CartService {
     private UserServiceImpl userService;
     private ProductServiceImpl productService;
     private ContextHolderServices contextHolderServices;
+    private UserTracker userTracker;
     @Autowired
     public CartServiceImpl(CartRepository cartRepository,
                            ProductServiceImpl productService,
                            UserServiceImpl userService,
-                           ContextHolderServices contextHolderServices){
+                           ContextHolderServices contextHolderServices, UserTracker userTracker){
         this.cartRepository=cartRepository;
         this.userService=userService;
         this.productService=productService;
         this.contextHolderServices = contextHolderServices;
+        this.userTracker = userTracker;
     }
     @Override
     public List<ShowInCartById> showCart() {
@@ -110,12 +114,35 @@ public class CartServiceImpl implements CartService {
         return response;
     }
 
+//    public static void main(String[] args) {
+//        System.out.println(LocalDateTime.now());
+//    }
     @Override
     public Response checkOutAllCart() {
 
         User user = userService.validateUser(contextHolderServices.getContext().getId());
-        this.cartRepository.checkOutFromCart(user);
+        List<Cart> cartList = this.cartRepository.findCartById(user);
+        System.out.println(cartList.size());
+        mapInRecommender(cartList,user);
+        this.cartRepository.checkOutFromCart(user,LocalDateTime.now());
         return Response.builder().id(user.getId()).build();
+    }
+
+    private void mapInRecommender(List<Cart> cartList, User user) {
+        cartList.forEach(cart -> {
+            userTracker.saveUserMapping(user,prepareUserSelectionRequest(cart));
+            System.out.println("aaa");
+        });
+        System.out.println("aayo");
+    }
+
+    private UserSelectionRequest prepareUserSelectionRequest(Cart cart){
+        UserSelectionRequest request = new UserSelectionRequest();
+        request.setProductId(cart.getProductId().getId());
+        request.setSelectionParam(TypeOfInput.CHECKOUT.name());
+        LocalDateTime nowTime =LocalDateTime.now();
+        request.setLocalDateTime(String.valueOf(nowTime).split("T")[0] + " "+String.valueOf(nowTime).split("T")[1]);
+        return  request;
     }
 
     @Override
