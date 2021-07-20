@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/wardRobe
+    url: jdbc:postgresql://localhost:5432/Handcraft
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
@@ -21,3 +21,8 @@ knn:
 
   input:
     k: 3
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 100MB
