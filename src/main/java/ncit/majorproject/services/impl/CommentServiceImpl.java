@@ -45,7 +45,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<CommentListResponse> addComment(CommentRequest commentRequest) throws Exception {
-        validateAlreadyCommented(commentRequest);
+//        validateAlreadyCommented(commentRequest);
         Comment comment=prepareToAddComment(commentRequest);
         commentRepository.save(comment);
         return getAllCommentFromPostId(commentRequest.getProductId());

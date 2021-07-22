@@ -11,6 +11,7 @@ import ncit.majorproject.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class CommentController {
 
 
     @PostMapping("/addComment")
-    public List<CommentListResponse> addComment(@RequestBody CommentRequest commentRequest) throws Exception {
+    public List<CommentListResponse> addComment(@Valid @RequestBody CommentRequest commentRequest) throws Exception {
         log.info("adding comment",commentRequest.getProductId(),commentRequest.getPostComment());
         return commentService.addComment(commentRequest);
     }
