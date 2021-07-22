@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { ClearCartAction, GetCartItemsAction, RemoveItemFromCartAction } from '../Actions/GetCartItemsAction';
-import { getRecommendations } from '../Actions/GetRecommendationAction';
+// import { getRecommendations } from '../Actions/GetRecommendationAction';
 import Message from '../Components/Message';
 import './Slider.css';
 
@@ -37,10 +37,10 @@ const CartScreen = ({ match, location, history }) => {
 	);
 	useEffect(
 		() => {
-		if (productId) 
-		{
-			dispatch(getRecommendations(productId, localDateTime, cart));					
-		}
+		// if (productId) 
+		// {
+		// 	dispatch(getRecommendations(productId, localDateTime, cart));					
+		// }
 	}, [ dispatch, productId,localDateTime,view])
 
 	const checkoutHandler = () => {
@@ -178,7 +178,7 @@ const CartScreen = ({ match, location, history }) => {
 							</List>
 						</Grid>
 					</Grid>
-					<Grid item md={12} style={{marginTop:50}}>
+					{/* <Grid item md={12} style={{marginTop:50}}>
 						<h1>Hello</h1>
 							<Slider {...settings}>
 								{recommendations?.recommendedItemsList?.map((Example, index) => {
@@ -195,7 +195,7 @@ const CartScreen = ({ match, location, history }) => {
 											alt={Example.name}
 											style={{ height: 150, width: 'auto' }}
 										/> */}
-										</Link>
+										{/*</Link>
 										</div>
 										<Link to={`/product/${Example.id}`} style={{fontWeight:'bold', textDecoration:'none', color:'black'}}> 
 											<p
@@ -214,7 +214,7 @@ const CartScreen = ({ match, location, history }) => {
 									);
 								})}
 							</Slider>
-						</Grid>
+						</Grid> */}
 				</div>
 			) : <Message severity="info">Please Log In</Message>}
 			

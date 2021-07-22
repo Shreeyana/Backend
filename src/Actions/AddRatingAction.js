@@ -17,7 +17,7 @@ export const AddRatingAction = (rating, reviewDoneTo) => async (dispatch, getSta
 		};
 		console.log(rating);
 
-		const { data } = await Axios.post('/v1/api/review-rating', { rating, reviewDoneTo }, config);
+		const { data } = await Axios.post('http://127.0.0.1:8080/v1/api/review-rating', { rating, reviewDoneTo }, config);
 
 		dispatch({
 			type: ADD_RATING_SUCCESS,

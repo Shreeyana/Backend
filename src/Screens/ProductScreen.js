@@ -49,8 +49,8 @@ const ProductScreen = ({ history, match }) => {
 	const getReview = useSelector((state) => state.getReview);
 	const { reviews } = getReview;
 
-	const getRecommendation = useSelector((state) => state.getRecommendation);
-	const { recommendations } = getRecommendation;
+	// const getRecommendation = useSelector((state) => state.getRecommendation);
+	// const { recommendations } = getRecommendation;
 
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
@@ -69,7 +69,7 @@ const ProductScreen = ({ history, match }) => {
 			
 			dispatch(listDetails(match.params.id));
 			dispatch(getReviews(match.params.id));
-			dispatch(getRecommendations(match.params.id, localDateTime, view));			
+			// dispatch(getRecommendations(match.params.id, localDateTime, view));			
 		},
 		[ dispatch, match, localDateTime,view,fetch ]
 	);

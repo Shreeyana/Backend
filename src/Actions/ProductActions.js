@@ -27,7 +27,7 @@ export const listDetails = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: PRODUCT_DETAILS_REQUEST });
 
-		const { data } = await Axios.get(`/v1/api/product/get-product-by-id?id=${id}`);
+		const { data } = await Axios.get(`http://127.0.0.1:8080/v1/api/product/get-product-by-id?id=${id}`);
 
 		dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
 	} catch (error) {

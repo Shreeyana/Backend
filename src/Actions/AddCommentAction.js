@@ -16,7 +16,7 @@ export const AddCommentAction = (productId, postComment) => async (dispatch, get
 			},
 		};
 
-		const { data } = await Axios.post('/v1/api/comment/addComment', { productId, postComment }, config);
+		const { data } = await Axios.post('http://127.0.0.1:8080/v1/api/comment/addComment', { productId, postComment }, config);
 
 		dispatch({
 			type: ADD_COMMENT_SUCCESS,

@@ -105,7 +105,7 @@ const Header = ({ history }) => {
 							alignItems: 'center',
 						}}
 					>
-						<img src='image.png'style={{ height: '55px', width: 'auto' }} />
+						<img src='/image.png'style={{ height: '55px', width: 'auto' }} />
 					</Link>
 				</div>
 				<div>
