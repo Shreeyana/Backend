@@ -20,7 +20,7 @@ import SearchScreen from './Screens/SearchScreen';
 function App() {
 	return (
 		<BrowserRouter>
-			<Header />
+			{/* <Header /> */}
 			<div className='App' style={{ fontFamily: 'Poppins', width: '80%', margin: 'auto' }}>
 				<StylesProvider injectFirst>
 					<Route path='/' exact component={HomeScreen} />
@@ -37,6 +37,8 @@ function App() {
 					<Route path='/productlist' component={ProductList} />
 					<Route path='/addproduct' component={AddProduct} />
 					<Route path='/filter/:category?' component={FilterScreen} />
+				
+
 				</StylesProvider>
 			</div>
 			<Footer />

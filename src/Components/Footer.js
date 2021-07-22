@@ -13,7 +13,7 @@ const Footer = () => {
 			<Container maxWidth='xl' style={{ marginTop: 40 }}>
 				<Grid item xs={12} sm={12} md={12} lg={12}>
 					<FooterGrid item xs={12} sm={12} md={12} lg={12}>
-						<p>Copyright &copy; Wardrobe</p>
+						<p>Copyright &copy; HandiCraft</p>
 					</FooterGrid>
 				</Grid>
 			</Container>

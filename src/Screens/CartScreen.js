@@ -20,8 +20,8 @@ const CartScreen = ({ match, location, history }) => {
 	const dispatch = useDispatch();
 
 
-	const getRecommendation = useSelector((state) => state.getRecommendation);
-	const { recommendations } = getRecommendation;
+	// const getRecommendation = useSelector((state) => state.getRecommendation);
+	// const { recommendations } = getRecommendation;
 
 	const userLogin = useSelector((state) => state.userLogin);
 	const { userInfo } = userLogin;
@@ -179,7 +179,7 @@ const CartScreen = ({ match, location, history }) => {
 						</Grid>
 					</Grid>
 					<Grid item md={12} style={{marginTop:50}}>
-						<h1>You may also Like</h1>
+						<h1>Hello</h1>
 							<Slider {...settings}>
 								{recommendations?.recommendedItemsList?.map((Example, index) => {
 									return (
@@ -190,11 +190,11 @@ const CartScreen = ({ match, location, history }) => {
 													alignItems: 'center',												
 												}}>
 													<Link to={`/product/${Example.id}`}>
-											 <img
+											 {/* <img
 											src={`data:image/jpeg;base64,${Example.img}`}
 											alt={Example.name}
 											style={{ height: 150, width: 'auto' }}
-										/>
+										/> */}
 										</Link>
 										</div>
 										<Link to={`/product/${Example.id}`} style={{fontWeight:'bold', textDecoration:'none', color:'black'}}> 

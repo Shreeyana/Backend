@@ -226,9 +226,9 @@ const ProductScreen = ({ history, match }) => {
 						</Grid> :null}
 						
 					</Grid>
-					{userInfo?<Grid container style={{ marginTop: 10 }}>
+					{/* {userInfo?<Grid container style={{ marginTop: 10 }}> */}
 						
-						<Grid item md={12}>
+						{/* <Grid item md={12}>
 							<h1>You may also like</h1>
 						</Grid>
 						<Grid item md={12}>
@@ -267,7 +267,7 @@ const ProductScreen = ({ history, match }) => {
 								})}
 							</Slider>
 						</Grid>
-					</Grid> :null}
+					</Grid> :null} */}
 					
 				</div>
 			)}

@@ -8,7 +8,7 @@ import { logout } from '../Actions/UserActions';
 import NavItems from '../Files/NavItems';
 import './Header.scss';
 import { withRouter } from 'react-router';
-import img1 from './logo.png';
+
 
 const StyledHeader = styled.header`
 	display: flex;
@@ -54,13 +54,13 @@ const Li = styled.li`
 `;
 
 const Header = ({ history }) => {
-	const [ kids, setKids ] = useState('kids');
-	const [ men, setMen ] = useState('men');
+	const [ jewellery, setjewellery ] = useState('jewellery');
+	const [ Ceramic, setCeramic ] = useState('Ceramic');
 	const [ search, setSearch ] = useState('');
-	const [ women, setWomen ] = useState('women');
-	const [ dress, setDress ] = useState('dress');
-	const [ traditional, setTraditional ] = useState('traditional');
-	const [ upper, setUpper ] = useState('upper');
+	const [ Bags, setBags ] = useState('Bags');
+	const [ Handmade, setHandmade ] = useState('Handmade');
+	const [ Nepalproduct, setNepalproduct ] = useState('Nepalproduct');
+	const [ Brand, setBrand ] = useState('Brand');
 
 	const [ anchorEl, setAnchorEl ] = useState(null);
 
@@ -105,7 +105,7 @@ const Header = ({ history }) => {
 							alignItems: 'center',
 						}}
 					>
-						<img src={img1} style={{ height: '30px', width: 'auto' }} />
+						<img src='image.png'style={{ height: '55px', width: 'auto' }} />
 					</Link>
 				</div>
 				<div>
@@ -128,7 +128,7 @@ const Header = ({ history }) => {
 						})}
 						{/*<Li className='menu'>
 							<i className='fas fa-bars' />
-							<p style={{ paddingLeft: 5 }}>Category</p>
+							<p style={{ paddingLeft: 5 }}>Categorys</p>
 							<ul>
 								<li class='link'>
 									<a href=''>Im a link</a>
@@ -153,57 +153,57 @@ const Header = ({ history }) => {
 							<ul>
 								<li>
 									<i className='fas fa-bars' style={{ paddingRight: 5 }} />
-									Categories
+									Category
 									<ul>
 										<li>
-											<Link to={`/filter/${kids}`}>Kids</Link>
+											<Link to={`/filter/${jewellery}`}>jewellery</Link>
 
 											<i className='fas fa-angle-right' style={{ paddingLeft: 50 }} />
 											<ul>
 												<li className='link'>
-													<Link to={`/filter/${kids}?subCategory=${dress}`}>Dress</Link>
+													<Link to={`/filter/${jewellery}?subCategory=${Handmade}`}>HandMade</Link>
 												</li>
 												<li className='link'>
-													<Link to={`/filter/${kids}?subCategory=${traditional}`}>
-														Traditional
+													<Link to={`/filter/${jewellery}?subCategory=${Nepalproduct}`}>
+													Nepalproduct
 													</Link>
 												</li>
 												<li className='link'>
-													<Link to={`/filter/${kids}?subCategory=${upper}`}>Upper</Link>
+													<Link to={`/filter/${jewellery}?subCategory=${Brand}`}>Brand</Link>
 												</li>
 											</ul>
 										</li>
 										<li>
-											<Link to={`/filter/${men}`}>Men</Link>
+											<Link to={`/filter/${Ceramic}`}>Ceramic</Link>
 											<i className='fas fa-angle-right' style={{ paddingLeft: 50 }} />
 											<ul>
 												<li className='link'>
-													<Link to={`/filter/${men}?subCategory=${dress}`}> Dress</Link>
+													<Link to={`/filter/${Ceramic}?subCategory=${Handmade}`}> Handmade</Link>
 												</li>
 												<li className='link'>
-													<Link to={`/filter/${men}?subCategory=${traditional}`}>
-														Traditional
+													<Link to={`/filter/${Ceramic}?subCategory=${Nepalproduct}`}>
+														Nepalproduct
 													</Link>
 												</li>
 												<li className='link'>
-													<Link to={`/filter/${men}?subCategory=${upper}`}> Upper</Link>
+													<Link to={`/filter/${Ceramic}?subCategory=${Brand}`}> Brand</Link>
 												</li>
 											</ul>
 										</li>
 										<li>
-											<Link to={`/filter/${women}`}>Women</Link>
+											<Link to={`/filter/${Bags}`}>Bags</Link>
 											<i className='fas fa-angle-right' style={{ paddingLeft: 20 }} />
 											<ul>
 												<li className='link'>
-													<Link to={`/filter/${women}?subCategory=${dress}`}> Dress</Link>
+													<Link to={`/filter/${Bags}?subCategory=${Handmade}`}> Handmade</Link>
 												</li>
 												<li className='link'>
-													<Link to={`/filter/${women}?subCategory=${traditional}`}>
-														Traditional
+													<Link to={`/filter/${Bags}?subCategory=${Nepalproduct}`}>
+														Nepalproduct
 													</Link>
 												</li>
 												<li className='link'>
-													<Link to={`/filter/${women}?subCategory=${upper}`}> Upper</Link>
+													<Link to={`/filter/${Bags}?subCategory=${Brand}`}>Brand</Link>
 												</li>
 											</ul>
 										</li>
